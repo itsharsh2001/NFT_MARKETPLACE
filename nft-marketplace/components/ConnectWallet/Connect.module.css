@@ -1,5 +1,12 @@
-.connectwallet{
-    
+.connectwallet {
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: space-between; */
+    width: 100%;
+    height: 60vh;
+    background: var(--background-day);
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .connectwallet div span img{
