@@ -1,0 +1,421 @@
+.createnft {
+    width: 100%;
+    /* background-color: red; */
+    /* height: 100vh; */
+    height: 1100px;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: flex;
+    justify-content: space-between;
+    /* align-items: center; */
+    margin-top: 60px;
+}
+
+.createnft>section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    /* width: 70%; */
+    width: 55%;
+    margin-bottom: 60px;
+    align-self: center;
+}
+
+.createnft>section>h2 {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 60px;
+    color: #101010;
+    margin-bottom: 30px;
+    /* flex: none; */
+    /* order: 0; */
+    /* flex-grow: 0; */
+    /* height: 50px; */
+}
+
+.createnft>section>p {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 25px;
+    color: #565656;
+    width: 50%;
+    /* margin-bottom: 40px; */
+    /* flex: none;
+    order: 1;
+    flex-grow: 0; */
+}
+
+.createnft>section>h5 {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    color: #101010;
+    margin-top: 40px;
+}
+
+.createnft>section>span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    border: none;
+    background: #FCFCFC;
+    border: 1px solid #F1F1F1;
+    border-radius: 10px;
+    width: 100%;
+    height: 30%;
+    /* padding-bottom: 100px; */
+    /* margin-bottom: 100px; */
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #999999;
+    /* cursor: pointer; */
+}
+
+.createnft>section>span>input{
+    /* display: none; */
+    /* visibility: hidden; */
+    cursor: pointer;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    /* margin-bottom: -45%; */
+}
+
+.icon {
+    font-size: 35px;
+    /* margin-bottom: -45px; */
+    /* margin-top: -35%; */
+}
+.bottomnegative{
+    /* margin-top: -35%; */
+}
+
+.createnft>section>label {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #101010;
+    margin-top: 30px;
+}
+
+.createnft>section>input {
+
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #F1F1F1;
+    color: #999999;
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+}
+
+.createnft>section>input::placeholder {
+
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    border: none;
+    outline: none;
+    /* border-bottom: 1px solid #F1F1F1; */
+
+
+    color: #999999;
+
+}
+
+.column {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.column>span {
+    flex: 0.31;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+.column>span>label {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    color: #101010;
+}
+
+.column>span>select {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* padding: none; */
+    padding-top: 4.5%;
+    padding-bottom: 4.5%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #F1F1F1;
+    color: #999999;
+}
+
+.column>span>input {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height, or 143% */
+    padding-top: 4.5%;
+    padding-bottom: 4.5%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #F1F1F1;
+    color: #999999;
+}
+
+.column>span>input::placeholder {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    /* padding-top: 1.5%;
+padding-bottom: 1.5%; */
+    /* identical to box height, or 143% */
+
+
+    color: #999999;
+}
+
+.createnft>section>section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.createnft>section>section>p {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+
+    color: #999999;
+}
+
+
+.createnft>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* justify-self: flex-start; */
+    height: 60%;
+    /* width: 70%; */
+    width: 370px;
+    margin-bottom: 60px;
+    /* margin-top: -50px; */
+    /* align-self: center; */
+}
+
+.createnft>div>h2 {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 19px;
+    margin-bottom: 30px;
+    color: #101010;
+}
+
+.createnft>div>button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 24px;
+    gap: 10px;
+    border: none;
+    outline: none;
+    /* position: absolute; */
+    width: 100%;
+    height: 50px;
+    background: #F1F1F1;
+    border-radius: 8px;
+    align-self: center;
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 26px;
+    /* identical to box height, or 162% */
+
+    text-align: center;
+    letter-spacing: 0.01em;
+
+    color: #101010;
+    cursor: pointer;
+    transition: all 0.5s ease 0s;
+}
+
+.createnft>div>button:active,
+.createnft>div>button:hover {
+    transform: scale(1.2);
+    /* background-color: red; */
+}
+
+.imgdiv {
+    width: 100%;
+    height: 480px;
+    border-radius: 20px;
+    background: black;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+.createnft>div>span {
+    background: #FFFFFF;
+    /* background-color: red; */
+    box-shadow: 0px 5px 100px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    width: 85%;
+    align-self: center;
+    margin-top: -100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    height: 33%;
+    margin-bottom: 60px;
+    /* position: relative; */
+    /* top: 370px; */
+}
+
+.createnft>div>span>section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.createnft>div>span>section>h5 {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.01em;
+    color: #101010;
+}
+
+.createnft>div>span>div {
+    width: 100%;
+    align-self: baseline;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.createnft>div>span>div>section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 50%;
+
+}
+
+.createnft>div>span>div>section>p {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    letter-spacing: 0.01em;
+
+    color: #999999;
+
+}
+
+.createnft>div>span>div>section>h6 {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    letter-spacing: 0.01em;
+
+    color: #101010;
+}
+
+.createnft>div>span>span {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 100%;
+}
+
+.createnft>div>span>span>img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.icon2 {
+    cursor: pointer;
+    color: #979797;
+}
+
+.icon2:hover,
+.icon2:active {
+    color: red;
+}
+
+.icon3 {
+    color: #979797;
+    cursor: pointer;
+}
+
+.icon3:hover,
+.icon3:active {
+    color: red;
+}
