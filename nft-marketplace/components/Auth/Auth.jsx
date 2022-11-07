@@ -1,13 +1,27 @@
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import classes from './LoginRegister.module.css'
-// import { getURL } from 'next/dist/shared/lib/utils';
-// import { URL } from 'next/dist/compiled/@edge-runtime/primitives/url';
-// import image from '../../public/signin.jpg'
-function LoginRegister() {
+import { useState } from 'react';
+
+import classes from './Auth.module.css'
+
+function Auth() {
     let image = `url(/signin.jpg)`
     let image1 = `url(/face.jpg)`
+
+    const [isLogin, setIsLogin] = useState(true)
+
+    const loginRegisterToggler = () => {
+        setIsLogin((prevIsLogin)=>{return !prevIsLogin})
+    }
+
+    const loginHandler = () => {
+        console.log("login successful");
+    }
+
+    const registerHandler = () => {
+        console.log("register successful");
+    }
 
     return (
         // <div style={{width:'100px', height:'100px', background:`url(/signin.jpg)`}}>
@@ -39,8 +53,11 @@ function LoginRegister() {
                             <div className={classes.greenbutton}>
                                 {/* <div style={{ background: image1 }}></div> */}
                                 <section>
-                                    <p>Owner</p>
-                                    <h6>Harsh</h6>
+                                    <span className={classes.smallimg1} style={{ background: image1 }}></span>
+                                    <div>
+                                        <p>Owner</p>
+                                        <h6>Harsh</h6>
+                                    </div>
                                 </section>
                                 <button>Place Bid</button>
                             </div>
@@ -66,8 +83,11 @@ function LoginRegister() {
                             <div className={classes.greenbutton}>
                                 {/* <div style={{ background: image1 }}></div> */}
                                 <section>
-                                    <p>Owner</p>
-                                    <h6>Harsh</h6>
+                                    <span className={classes.smallimg1} style={{ background: image1 }}></span>
+                                    <div>
+                                        <p>Owner</p>
+                                        <h6>Harsh</h6>
+                                    </div>
                                 </section>
                                 <button>Place Bid</button>
                             </div>
@@ -93,8 +113,11 @@ function LoginRegister() {
                             <div className={classes.greenbutton}>
                                 {/* <div style={{ background: image1 }}></div> */}
                                 <section>
-                                    <p>Owner</p>
-                                    <h6>Harsh</h6>
+                                    <span className={classes.smallimg1} style={{ background: image1 }}></span>
+                                    <div>
+                                        <p>Owner</p>
+                                        <h6>Harsh</h6>
+                                    </div>
                                 </section>
                                 <button>Place Bid</button>
                             </div>
@@ -102,7 +125,6 @@ function LoginRegister() {
                     </div>
                     {/* </span> */}
                 </SwiperSlide>
-
             </Swiper>
             <section>
                 <h1>Welcome Back to Enfty.</h1>
@@ -112,16 +134,22 @@ function LoginRegister() {
                 <label htmlFor="">Password</label>
                 <input type="password" name="" id="" placeholder='Input your password' />
 
-                <label htmlFor="">Confirm Password</label>
-                <input type="password" name="" id="" placeholder='Input your password' />
+                {!isLogin && <>
+                    <label htmlFor="">Confirm Password</label>
+                    <input type="password" name="" id="" placeholder='Input your password' />
+                </>}
 
-                <div>
-                    <p>Don't have account? <b className={classes.bold}>Register</b></p>
-                    <button>Login</button>
-                </div>
+                {isLogin && <div>
+                    <p>Don't have account? <b onClick={loginRegisterToggler} className={classes.bold}>Register</b></p>
+                    <button onClick={loginHandler}>Login</button>
+                </div>}
+                {!isLogin && <div>
+                    <p>Already have a account? <b onClick={loginRegisterToggler} className={classes.bold}>Login</b></p>
+                    <button onClick={registerHandler}>Register</button>
+                </div>}
             </section>
         </header>
     )
 }
 
-export default LoginRegister
+export default Auth

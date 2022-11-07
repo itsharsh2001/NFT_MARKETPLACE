@@ -1,12 +1,12 @@
-import LoginRegister from "../components/Auth/LoginRegister";
+import Auth from "../components/Auth/Auth";
 import Footer from "../components/Home/Footer";
 import NavBar from "../components/Home/NavBar";
 
-export default function Login() {
+export default function LoginRegister() {
     return (
       <>
         <NavBar/>
-        <LoginRegister/>
+        <Auth/>
         <Footer/>
       </>
     )

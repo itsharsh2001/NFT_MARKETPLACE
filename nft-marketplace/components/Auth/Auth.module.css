@@ -37,7 +37,7 @@
     /* background-repeat: none!important; */
 }
 
-.imgdiv span {
+.imgdiv>span {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -57,7 +57,7 @@
     border-radius: 20px;
 }
 
-.imgdiv span h3 {
+.imgdiv>span>h3 {
     font-family: 'Urbanist';
     font-style: normal;
     font-weight: 700;
@@ -70,7 +70,7 @@
     color: #101010;
 }
 
-.imgdiv span div {
+.imgdiv>span>div {
     display: flex;
     /* flex-direction: column; */
     align-items: center;
@@ -78,7 +78,7 @@
     width: 100%;
 }
 
-.imgdiv p {
+.imgdiv>span>div> p {
     font-family: 'Urbanist';
     font-style: normal;
     font-weight: 600;
@@ -91,7 +91,7 @@
     color: #999999;
 }
 
-.imgdiv h6 {
+.imgdiv>span>div> h6 {
     font-family: 'Urbanist';
     font-style: normal;
     font-weight: 600;
@@ -104,42 +104,82 @@
     color: #101010;
 }
 
+
 .greenbutton {
-    display: block !important;
-    align-content: center;
+    display: flex!important;
+    /* flex-direction: row; */
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
-.greenbutton div{
-    /* border-radius: 50%; */
-    width: 50px!important;
-    height: 50px;
-    background-size: contain;
-    background-position:center;
-    background-repeat: none;
+.greenbutton section {
+    flex: 0.7!important;
+    /* width: 70%; */
+    display: flex;
+    flex-direction: row!important;
+    /* justify-content: left!important; */
+    align-items: center;
+    width: unset!important;
+    height: unset!important;
+    justify-content: unset!important;
+}
+.smallimg1 {
+    display: block;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-size: cover!important;
+    background-position: center!important;
 }
 
-.imgdiv button {
-    float: right;
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-    /* padding: 12px 24px; */
+.greenbutton section div {
+    display: flex;
+    flex-direction: column;
+    justify-content: unset!important;
+    align-items: baseline!important;
+    margin-left: 15px;
+    width: unset!important;
+}
+
+.greenbutton section div p {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    letter-spacing: 0.01em;
+
+    color: #999999;
+}
+
+.greenbutton section div h6 {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.01em;
+
+    color: #101010;
+}
+
+.greenbutton button {
     outline: none;
-    width: 50%;
-    /* flex: 0.4; */
-    /* height: 3em; */
-    /* height: 70%; */
+    width: 40%;
+    height: 40px;
     border: none;
     background: #DDF247;
     border-radius: 8px;
-    /* flex: 0.15; */
     font-family: 'Urbanist';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
-    /* line-height: 26px; */
-    /* identical to box height, or 162% */
-
     text-align: center;
     letter-spacing: 0.01em;
     color: #101010;
@@ -148,8 +188,8 @@
     transition: all 0.5s ease 0s;
 }
 
-.imgdiv button:hover,
-.imgdiv button:active {
+.greenbutton button:hover,
+.greenbutton button:active {
     transform: scale(1.2);
 }
 
