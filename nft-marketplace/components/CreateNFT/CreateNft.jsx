@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { Switch } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -15,7 +16,9 @@ import {
   useSigner,
   Web3Modal,
 } from "@web3modal/react";
+import { create } from "ipfs-http-client";
 
+import ipfsClient from "ipfs-http-client";
 import classes from "./CreateNft.module.css";
 import { abi } from "../../../contracts/artifacts/contracts/NFT.sol/BtechProejctNFT.json";
 const url =
@@ -23,19 +26,38 @@ const url =
 
 const address = "0x93CF0E514e4D60D0986a13D0cb95A58ec4eA0197";
 
+const projectId = "296iTBim8eN48PB5QsQeyRPBzoF";
+const projectSecret = "76bfd111bd80b8380f4f5528034c4db9";
+const auth =
+  "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
+
+const init_url = "https://cloudflare-ipfs.com/ipfs/";
+
 const CreateNft = () => {
   let image = `url(/signin.jpg)`;
   let image2 = `url(/signin2.jpg)`;
 
+  const client = create({
+    host: "ipfs.infura.io",
+    port: 5001,
+    protocol: "https",
+    headers: {
+      authorization: auth,
+    },
+  });
   // function to mint nft
   const { account } = useAccount();
   const { data, error, isLoading } = useSigner("80001");
+  const [file, setFile] = useState();
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [assetUrl, setassetUrl] = useState("");
 
   async function mint() {
     let cont = new ethers.Contract(address, abi, data);
     // setContract(new ethers.Contract(address,abi,data))
 
-    console.log(await cont.name());
     try {
       let tx = await cont.safeMint(
         account.address,
@@ -47,9 +69,46 @@ const CreateNft = () => {
     }
   }
 
-  const handleChange = () => {
+  const handleChange = (event) => {
     console.log("Working Switch");
+    // setFile(event.target.files[0])
+    client.add(event.target.files[0]).then((res) => {
+      let last_url = res.path.toString();
+      setassetUrl(init_url + last_url);
+    });
   };
+
+  const handlenameChange = (event) => {
+    console.log("description : ");
+    setName(event.target.value);
+  };
+  const handledesChange = (event) => {
+    console.log("description : ");
+    setDescription(event.target.value);
+  };
+
+  const submitItems = async () => {
+    // set the object
+    let ob = {
+      name: "",
+      description: "",
+      image: "",
+    };
+
+    ob.name = name;
+    ob.description = description;
+    ob.image = assetUrl;
+
+    console.log(ob);
+    //   let final_url;
+    client.add(ob).then((res) => {
+      let last_url = res.path.toString();
+      setassetUrl(init_url + last_url);
+    });
+  };
+
+  console.log("The Item url is : ", assetUrl);
+
   return (
     <div className={classes.createnft}>
       <section>
@@ -66,6 +125,7 @@ const CreateNft = () => {
             name=''
             id=''
             placeholder='PNG, GIF, WEBP OR MP4, Max 1Gb'
+            onChange={handleChange}
           />
           <UploadFileIcon className={classes.icon} />
           <p className={classes.bottomnegative}>
@@ -80,6 +140,7 @@ const CreateNft = () => {
           name='itemname'
           id='itemname'
           placeholder='Ex: Awesome Artwork!'
+          onChange={handlenameChange}
         />
         <label htmlFor='description'>Description</label>
         <input
@@ -87,6 +148,7 @@ const CreateNft = () => {
           name='description'
           id='description'
           placeholder='Ex: After purchasing you will be able to receive the logo'
+          onChange={handledesChange}
         />
 
         <div className={classes.column}>
@@ -179,7 +241,7 @@ const CreateNft = () => {
             <h3>@mikhail</h3>
           </span>
         </span>
-        <button onClick={mint}>Create Item</button>
+        <button onClick={submitItems}>Create Item</button>
       </div>
     </div>
   );
