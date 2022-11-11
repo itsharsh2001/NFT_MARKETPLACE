@@ -2,6 +2,7 @@ import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import classes from "./NavBar.module.css";
 import Link from "next/link";
+import axios from "axios";
 import {
   Web3Button,
   useAccount,
@@ -16,16 +17,32 @@ import { ethers } from "ethers";
 import { useState, useEffect } from "react";
 
 function NavBar() {
-  let [web3Modal, setWeb3Modal] = useState(null);
-  const [provider, setProvider] = useState(null);
-  const [contract, setContract] = useState(null);
-  // const [account,setAccount] = useState(null);
+  // let [web3Modal, setWeb3Modal] = useState(null);
+  // const [provider, setProvider] = useState(null);
+  // const [contract, setContract] = useState(null);
+  const [address, setAddress] = useState("");
   const { account } = useAccount();
   const { data, error, isLoading } = useSigner("80001");
   if (error) {
     throw error;
   }
-  console.log(account.address);
+
+  // useEffect(() => {
+
+  // }, [address]);
+
+  const handleClick = () => {
+    if (account.isConnected) {
+      setAddress(account.address);
+
+      axios
+        .post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/login`, {
+          address,
+        })
+        .then((res) => console.log({ res }))
+        .catch((err) => console.log(err));
+    }
+  };
 
   return (
     <nav className={classes.nav}>
@@ -50,7 +67,7 @@ function NavBar() {
       </span>
       {account.isConnected}
       <Web3Button />
-      {/* <button>Connect Wallet</button> */}
+      <button onClick={() => handleClick()}>Handle Click</button>
     </nav>
   );
 }

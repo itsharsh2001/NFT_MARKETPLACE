@@ -100,11 +100,16 @@ const CreateNft = () => {
     ob.image = assetUrl;
 
     console.log(ob);
-    //   let final_url;
-    client.add(ob).then((res) => {
-      let last_url = res.path.toString();
-      setassetUrl(init_url + last_url);
-    });
+
+    try {
+      let final_url; // GETTING ERROR HERE
+      client.add(ob).then((res) => {
+        let last_url = res.path.toString();
+        setassetUrl(init_url + last_url);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   console.log("The Item url is : ", assetUrl);
