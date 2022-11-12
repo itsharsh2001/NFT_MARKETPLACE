@@ -5,10 +5,10 @@ import DiamondIcon from '@mui/icons-material/Diamond';
 
 import classes from './Creator.module.css'
 
-const Creator = () => {
+const Creator = ({ data }) => {
   let image = `url(/signin.jpg)`
   let image2 = `url(/signin2.jpg)`
-
+  // console.log(data);
   return (<>
     <header className={classes.header}>
       <div>
@@ -54,161 +54,46 @@ const Creator = () => {
 
 
     <main className={classes.main}>
-      <div>
-        <div className={classes.imgdiv1} style={{ background: image }}>
+      {
+        // data.map((item , index)=>{
+        // console.log(item); 
+        data[0].items.map((item, index) => {
+          console.log(item);
+          return <div id={item._id}>
+            <div className={classes.imgdiv1} style={{ background: `url(${item.imageLinks[0]})` }}>
 
-        </div>
-        <span>
+            </div>
+            <span>
 
-          <h3>Abstract Plain Waves
-
-          Premium #001
-          </h3>
-          <div>
-            <p>Current Bid</p>
-            <p>End In</p>
-          </div>
-          <div>
-            <h6><DiamondIcon/>50ETH</h6>
-            <h6>22h 50m 22s</h6>
-          </div>
-          <div className={classes.greenbutton}>
-            {/* <div style={{ background: image1 }}></div> */}
-            <section>
-              <span className={classes.smallimg1} style={{ background: image2 }}></span>
+              <h3>{item.description}
+              </h3>
               <div>
-                <p>Owner</p>
-                <h6>Harsh</h6>
+                <p>Current Bid</p>
+                <p>End In</p>
               </div>
-            </section>
-            <button>Place Bid</button>
-          </div>
-        </span>
-      </div>
-      <div>
-        <div className={classes.imgdiv1} style={{ background: image }}>
-
-        </div>
-        <span>
-
-          <h3>Abstract Plain Waves
-
-          Premium #001
-          </h3>
-          <div>
-            <p>Current Bid</p>
-            <p>End In</p>
-          </div>
-          <div>
-            <h6><DiamondIcon/>50ETH</h6>
-            <h6>22h 50m 22s</h6>
-          </div>
-          <div className={classes.greenbutton}>
-            {/* <div style={{ background: image1 }}></div> */}
-            <section>
-              <span className={classes.smallimg1} style={{ background: image2 }}></span>
               <div>
-                <p>Owner</p>
-                <h6>Harsh</h6>
+                <h6><DiamondIcon />{item.price} ETH</h6>
+                <h6>22h 50m 22s</h6>
               </div>
-            </section>
-            <button>Place Bid</button>
-          </div>
-        </span>
-      </div>
-      <div>
-        <div className={classes.imgdiv1} style={{ background: image }}>
-
-        </div>
-        <span>
-
-          <h3>Abstract Plain Waves
-
-          Premium #001
-          </h3>
-          <div>
-            <p>Current Bid</p>
-            <p>End In</p>
-          </div>
-          <div>
-            <h6><DiamondIcon/>50ETH</h6>
-            <h6>22h 50m 22s</h6>
-          </div>
-          <div className={classes.greenbutton}>
-            {/* <div style={{ background: image1 }}></div> */}
-            <section>
-              <span className={classes.smallimg1} style={{ background: image2 }}></span>
-              <div>
-                <p>Owner</p>
-                <h6>Harsh</h6>
+              <div className={classes.greenbutton}>
+                {/* <div style={{ background: image1 }}></div> */}
+                <section>
+                  <span className={classes.smallimg1} style={{ background: image2 }}></span>
+                  <div>
+                    <p>Owner</p>
+                    <h6>{item.name}</h6>
+                  </div>
+                </section>
+                <button>Place Bid</button>
               </div>
-            </section>
-            <button>Place Bid</button>
+            </span>
           </div>
-        </span>
-      </div>
-      <div>
-        <div className={classes.imgdiv1} style={{ background: image }}>
 
-        </div>
-        <span>
+        })
+        // })
+      }
 
-          <h3>Abstract Plain Waves
 
-          Premium #001
-          </h3>
-          <div>
-            <p>Current Bid</p>
-            <p>End In</p>
-          </div>
-          <div>
-            <h6><DiamondIcon/>50ETH</h6>
-            <h6>22h 50m 22s</h6>
-          </div>
-          <div className={classes.greenbutton}>
-            {/* <div style={{ background: image1 }}></div> */}
-            <section>
-              <span className={classes.smallimg1} style={{ background: image2 }}></span>
-              <div>
-                <p>Owner</p>
-                <h6>Harsh</h6>
-              </div>
-            </section>
-            <button>Place Bid</button>
-          </div>
-        </span>
-      </div>
-      <div>
-        <div className={classes.imgdiv1} style={{ background: image }}>
-
-        </div>
-        <span>
-
-          <h3>Abstract Plain Waves
-
-          Premium #001
-          </h3>
-          <div>
-            <p>Current Bid</p>
-            <p>End In</p>
-          </div>
-          <div>
-            <h6><DiamondIcon/>50ETH</h6>
-            <h6>22h 50m 22s</h6>
-          </div>
-          <div className={classes.greenbutton}>
-            {/* <div style={{ background: image1 }}></div> */}
-            <section>
-              <span className={classes.smallimg1} style={{ background: image2 }}></span>
-              <div>
-                <p>Owner</p>
-                <h6>Harsh</h6>
-              </div>
-            </section>
-            <button>Place Bid</button>
-          </div>
-        </span>
-      </div>
     </main>
   </>
   )

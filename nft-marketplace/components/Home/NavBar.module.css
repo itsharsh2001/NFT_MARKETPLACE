@@ -27,7 +27,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex: 0.325;
+    flex: 0.400;
     
     /* padding-left: 5%; */
     /* padding-right: 5%; */
@@ -62,7 +62,7 @@
     background: #FFFFFF;
     border: 1px solid #F1F1F1;
     border-radius: 10px;    
-    flex: 0.325;
+    flex: 0.250;
     height: 50%;
     /* width: 60%; */
 }
