@@ -6,6 +6,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import DiamondIcon from "@mui/icons-material/Diamond";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { ethers } from "ethers";
+import axios from "axios";
 import {
   Web3Button,
   useAccount,
@@ -54,6 +55,18 @@ const CreateNft = () => {
   const [description, setDescription] = useState("");
   const [assetUrl, setassetUrl] = useState("");
 
+  //  NOTE: the following user object should be stored as state variable
+  const user = {
+    _id: "636eb433a5565a863feda551",
+    walletAddress: "0x93cB0bDA79f72FFbA7f9c245f2fBd7d98Aa7e14F",
+    userName: "Default Username",
+    collections: [],
+    socialMedia: [],
+    createdAt: "2022-11-11T20:44:35.214Z",
+    updatedAt: "2022-11-11T20:44:35.214Z",
+    __v: 0,
+  };
+
   async function mint() {
     let cont = new ethers.Contract(address, abi, data);
     // setContract(new ethers.Contract(address,abi,data))
@@ -99,17 +112,28 @@ const CreateNft = () => {
     ob.description = description;
     ob.image = assetUrl;
 
-    console.log(ob);
+    // try {
+    //   let final_url; // GETTING ERROR HERE
+    //   client.add(ob).then((res) => {
+    //     let last_url = res.path.toString();
+    //     setassetUrl(init_url + last_url);
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
 
-    try {
-      let final_url; // GETTING ERROR HERE
-      client.add(ob).then((res) => {
-        let last_url = res.path.toString();
-        setassetUrl(init_url + last_url);
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    const body = {
+      ownerId: user._id,
+      name,
+      description,
+      imageLinks: [assetUrl],
+    };
+    console.log({ body });
+
+    axios
+      .post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/item/create`, body)
+      .then((res) => console.log({ res }))
+      .catch((err) => console.log(err));
   };
 
   console.log("The Item url is : ", assetUrl);
@@ -221,10 +245,26 @@ const CreateNft = () => {
 
       <div>
         <h4>PREVIEW ITEM</h4>
-        <div className={classes.imgdiv} style={{ background: image }}></div>
+        <div className={classes.imgdiv} style={{ background: image }}>
+          {assetUrl != "" && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                verticalAlign: "middle",
+              }}
+            >
+              <img
+                src={assetUrl}
+                alt='Your upload'
+                style={{ height: "300px", width: "300px", position: "center" }}
+              />
+            </div>
+          )}
+        </div>
         <span>
           <section>
-            <h5>Item Name</h5>
+            <h5>{name == "" ? "Item Name" : name}</h5>
             <FavoriteBorderIcon className={classes.icon2} />
           </section>
           <div>
@@ -243,7 +283,7 @@ const CreateNft = () => {
           </div>
           <span>
             <img src='/signin.jpg' alt='' />
-            <h3>@mikhail</h3>
+            <h3>@{user?.userName}</h3>
           </span>
         </span>
         <button onClick={submitItems}>Create Item</button>

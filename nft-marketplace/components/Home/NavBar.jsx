@@ -27,18 +27,14 @@ function NavBar() {
     throw error;
   }
 
-  // useEffect(() => {
-
-  // }, [address]);
-
   const handleClick = () => {
     if (account.isConnected) {
       setAddress(account.address);
-
+      const body = {
+        address: account.address,
+      };
       axios
-        .post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/login`, {
-          address,
-        })
+        .post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/login`, body)
         .then((res) => console.log({ res }))
         .catch((err) => console.log(err));
     }
@@ -65,7 +61,7 @@ function NavBar() {
         <input type='text' placeholder='Search Artwork/Creator Name' />
         <SearchIcon className={classes.icon} />
       </span>
-      {account.isConnected}
+
       <Web3Button />
       <button onClick={() => handleClick()}>Handle Click</button>
     </nav>
