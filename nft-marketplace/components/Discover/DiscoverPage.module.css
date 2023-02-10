@@ -1,0 +1,237 @@
+.discover h1{
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 60px;
+    text-transform: capitalize;
+    color: #101010;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-top: 80px;
+}
+
+.discover nav{
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-top: 35px;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.discover nav div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 55%;
+}
+
+.discover nav span{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    /* gap: 121px; */
+    width: 150px;
+    height: 50px;
+    background: #FFFFFF;
+    border: 1px solid #F1F1F1;
+    border-radius: 10px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    
+    text-align: left;
+}
+
+.discover nav span p{
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0.01em;
+    color: #101010;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.imgdiv1 {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background: black;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+
+.smallimg1 {
+    display: block;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+.greenbutton {
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.greenbutton section {
+    flex: 0.7;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.greenbutton section div {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    margin-left: 15px;
+}
+
+.greenbutton button {
+    outline: none;
+    width: 40%;
+    height: 40px;
+    border: none;
+    background: #DDF247;
+    border-radius: 8px;
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #101010;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px 0px #00000016;
+    transition: all 0.5s ease 0s;
+}
+
+.greenbutton button:hover,
+.greenbutton button:active {
+    transform: scale(1.2);
+}
+
+
+.main {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: 30% 30% 30%;
+    /* grid-template-rows: 700px; */
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    min-height: 800px;
+}
+
+.main>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* justify-self: flex-start; */
+    height: 650px;
+    /* width: 70%; */
+    /* width: 370px; */
+    width: 100%;
+    margin-bottom: 60px;
+    /* margin-top: -50px; */
+    /* align-self: center; */
+}
+
+
+.main>div>span {
+    background: #FFFFFF;
+    /* background-color: red; */
+    box-shadow: 0px 5px 100px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    width: 85%;
+    align-self: center;
+    margin-top: -120px;
+
+    height: 300px;
+    margin-bottom: 60px;
+    /* position: relative; */
+    /* top: 370px; */
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px;
+    /* gap: 20px; */
+
+
+
+    background: #FFFFFF;
+    border-radius: 20px;
+}
+
+.main div span h3 {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 25px;
+    /* or 150% */
+
+    letter-spacing: 0.01em;
+
+    color: #101010;
+}
+
+.main>div>span>div {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    /* height: 10%; */
+}
+
+.main>div>span>div:nth-child(2) {
+    margin-bottom: -15px;
+}
+
+.main div span p {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    letter-spacing: 0.01em;
+
+    color: #999999;
+}
+
+.main div span h6 {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.01em;
+
+    color: #101010;
+}
