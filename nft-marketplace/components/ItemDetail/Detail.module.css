@@ -1,0 +1,249 @@
+.header {
+    width: 100%;
+    height: 80vh;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-top: 5vh;
+    margin-bottom: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+
+.slider {
+    width: 50%;
+    height: 100%;
+}
+
+/* .slider span{
+    width: 100%;
+    height: 100%;
+} */
+
+/* .slider div div{
+    width: 100%;
+    height: 100%;
+} */
+.imgdiv {
+    width: 90%;
+    height: 100%;
+    border-radius: 20px;
+
+    background-size: cover !important;
+    background-position: center !important;
+    /* background-repeat: none!important; */
+}
+
+.imgdiv>span {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px;
+    /* gap: 20px; */
+
+    position: absolute;
+    /* width: 330px; */
+    width: 55%;
+    /* height: 224px; */
+    height: 30%;
+    left: 5%;
+    top: 55%;
+
+    background: #FFFFFF;
+    border-radius: 20px;
+}
+
+.imgdiv>span>h3 {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 25px;
+    /* or 150% */
+
+    letter-spacing: 0.01em;
+
+    color: #101010;
+}
+
+.imgdiv>span>div {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.imgdiv>span>div>p {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    letter-spacing: 0.01em;
+
+    color: #999999;
+}
+
+.imgdiv>span>div>h6 {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    letter-spacing: 0.01em;
+
+    color: #101010;
+}
+
+
+.greenbutton {
+    display: flex !important;
+    /* flex-direction: row; */
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.greenbutton section {
+    flex: 0.7 !important;
+    /* width: 70%; */
+    display: flex;
+    flex-direction: row !important;
+    /* justify-content: left!important; */
+    align-items: center;
+    width: unset !important;
+    height: unset !important;
+    justify-content: unset !important;
+}
+
+.smallimg1 {
+    display: block;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+.greenbutton section div {
+    display: flex;
+    flex-direction: column;
+    justify-content: unset !important;
+    align-items: baseline !important;
+    margin-left: 15px;
+    width: unset !important;
+}
+
+.greenbutton section div p {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    letter-spacing: 0.01em;
+
+    color: #999999;
+}
+
+.greenbutton section div h6 {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.01em;
+
+    color: #101010;
+}
+
+.greenbutton button {
+    outline: none;
+    width: 40%;
+    height: 40px;
+    border: none;
+    background: #DDF247;
+    border-radius: 8px;
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #101010;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px 0px #00000016;
+    transition: all 0.5s ease 0s;
+}
+
+.greenbutton button:hover,
+.greenbutton button:active {
+    transform: scale(1.2);
+}
+
+
+.header section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+    height: 65%;
+}
+
+.header section h1 {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    color: #101010;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.header section p {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 25px;
+    color: #565656;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    border: none;
+    outline: none;
+    letter-spacing: 0.01em;
+    width: 90%;
+}
+
+.header section main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 25px 30px;
+    gap: 30px;
+    /* width: 541px; */
+    width: 90%;
+    height: 273px;
+    background: #FFFFFF;
+    box-shadow: 0px 10px 100px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}

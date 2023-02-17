@@ -1,4 +1,64 @@
 .topcollection{
     width: 100%;
     display: flex;
+    padding-left: 15%;
+    padding-right: 15%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topcollection h3{
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 45px;
+    letter-spacing: 0.3px;
+    color: #101010;
+    width: 23%;
+}
+
+.topcollection span p{
+    font-family: 'Urbanist';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 26px;
+/* identical to box height, or 162% */
+
+letter-spacing: 0.01em;
+
+/* Primary/Neutral/400 */
+
+color: #6F6F6F;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+
+.topcollection span h6{
+    font-family: 'Urbanist';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 28px;
+/* identical to box height, or 187% */
+
+letter-spacing: 0.346154px;
+text-decoration-line: underline;
+
+/* Primary/Neutral/500 */
+text-decoration: none;
+color: #101010;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
 }
