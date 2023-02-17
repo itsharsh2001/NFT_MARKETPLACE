@@ -1,26 +1,15 @@
 import "../styles/globals.css";
-
-import { chains, providers } from "@web3modal/ethereum";
-
-import { Web3Modal } from "@web3modal/react";
-
-const config = {
-  projectId: "0ee81dbd3aa911fafc82e4688ea899e7",
-  theme: "dark",
-  accentColor: "default",
-  ethereum: {
-    appName: "B.tech Project",
-    chains: [chains.polygonMumbai],
-    // providers: [providers.walletConnectProvider({ projectId: '0ee81dbd3aa911fafc82e4688ea899e7'})]
-  },
-};
+import { store, persistor } from "../store";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
-      <Component {...pageProps} />
-      <Web3Modal config={config} />
-    </>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <Component {...pageProps} />
+      </PersistGate>
+    </Provider>
   );
 }
 

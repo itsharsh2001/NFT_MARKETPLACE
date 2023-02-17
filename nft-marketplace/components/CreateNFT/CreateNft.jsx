@@ -7,16 +7,6 @@ import DiamondIcon from "@mui/icons-material/Diamond";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { ethers } from "ethers";
 import axios from "axios";
-import {
-  Web3Button,
-  useAccount,
-  useContract,
-  useSignMessage,
-  useContractWrite,
-  useProvider,
-  useSigner,
-  Web3Modal,
-} from "@web3modal/react";
 import { create } from "ipfs-http-client";
 
 import ipfsClient from "ipfs-http-client";
@@ -47,8 +37,6 @@ const CreateNft = () => {
     },
   });
   // function to mint nft
-  const { account } = useAccount();
-  const { data, error, isLoading } = useSigner("80001");
   const [file, setFile] = useState();
 
   const [name, setName] = useState("");
@@ -123,12 +111,12 @@ const CreateNft = () => {
     // }
 
     const body = {
+      walletAddress: user.walletAddress,
       ownerId: user._id,
       name,
       description,
       imageLinks: [assetUrl],
     };
-    console.log({ body });
 
     axios
       .post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/item/create`, body)
