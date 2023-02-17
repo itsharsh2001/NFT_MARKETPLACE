@@ -182,15 +182,16 @@ const CreateNft = () => {
 
         <div className={classes.column}>
           <span>
-            <label htmlFor='royalty'>Royalty</label>
-            <select name='royalty' id='royalty'>
-              <option value='Choose Royalty'>Choose Royalty</option>
-              <option value='10'>10%</option>
-              <option value='15'>15%</option>
-              <option value='20'>20%</option>
+            <label htmlFor='royalty'>Collection</label>
+            <select name='Collection' id='Collection'>
+              <option value='Choose Collection'>Choose Collection</option>
+              <option value='Collection A'>Collection A</option>
+              <option value='Collection B'>Collection B</option>
+              <option value='Collection C'>Collection C</option>
             </select>
           </span>
-          <span>
+          
+          {/* <span>
             <label htmlFor='size'>Size</label>
             <input
               type='text'
@@ -207,10 +208,19 @@ const CreateNft = () => {
               id='property'
               placeholder='Ex: property'
             />
-          </span>
+          </span> */}
         </div>
-
-        <h5>Put on Sale</h5>
+        <br/>
+        <p>OR</p>
+          <label htmlFor='newcollection'>Create a New Collection</label>
+        <input
+          type='text'
+          name='newcollection'
+          id='newcollection'
+          placeholder='Enter New Collection Name'
+          
+        />
+        {/* <h5>Put on Sale</h5>
         <section>
           <p>You’ll receive bids on this item</p>
           <Switch
@@ -240,7 +250,9 @@ const CreateNft = () => {
             color='warning'
             inputProps={{ "aria-label": "controlled" }}
           />
-        </section>
+        </section> */}
+
+
       </section>
 
       <div>
