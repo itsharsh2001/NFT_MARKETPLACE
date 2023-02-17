@@ -63,6 +63,14 @@ function NavBar() {
     }
   }
 
+  let image = `url(/signin.jpg)`;
+  // const [address, setAddress] = useState("");
+  // const { account } = useAccount();
+  // const { data, error, isLoading } = useSigner("80001");
+  // if (error) {
+  //   throw error;
+  // }
+
   async function disconnect() {
     try {
       dispatch(setUserName(""));
@@ -104,6 +112,10 @@ function NavBar() {
       ) : (
         <button onClick={() => initWallet()}>Connect</button>
       )}
+      <section>
+        <img src='/signin.jpg' alt='' />
+        <a href='/'>Profile</a>
+      </section>
     </nav>
   );
 }

@@ -109,6 +109,40 @@
     transform: scale(1.2);
 }
 
+.nav section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 12px 24px; */
+    outline: none;
+    width: 100%;
+    /* height: 3em; */
+    height: 50%;
+    border: none;
+    /* background: #DDF247; */
+    /* border-radius: 8px; */
+    flex: 0.15;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.15em;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #101010;
+    cursor: pointer;
+    /* box-shadow: 2px 2px 4px 0px #00000016; */
+    /* transition: all 0.5s ease 0s; */
+}
+
+.nav section img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.nav section a{
+    margin-left: 10px;
+}
+
 .icon{
     font-size: 1.5em;
     cursor: pointer;
