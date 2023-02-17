@@ -20,6 +20,7 @@ function NavBar() {
   // let [web3Modal, setWeb3Modal] = useState(null);
   // const [provider, setProvider] = useState(null);
   // const [contract, setContract] = useState(null);
+  let image = `url(/signin.jpg)`
   const [address, setAddress] = useState("");
   const { account } = useAccount();
   const { data, error, isLoading } = useSigner("80001");
@@ -64,6 +65,10 @@ function NavBar() {
 
       <Web3Button />
       <button onClick={() => handleClick()}>Handle Click</button>
+      {/* <section>
+        <img src="/signin.jpg" alt="" />
+        <a href="/">Profile</a>
+      </section> */}
     </nav>
   );
 }
