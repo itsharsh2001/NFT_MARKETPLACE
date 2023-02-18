@@ -180,9 +180,19 @@ const CreateNft = () => {
           onChange={handledesChange}
         />
 
+
         <div className={classes.column}>
+        <span>
+            <label htmlFor='address'>Receiver's Address</label>
+            <select name='address' id='address'>
+              <option value='Choose Receiver Address'>Choose Receiver's Address</option>
+              <option value='Address A'>Address A</option>
+              <option value='Address B'>Address B</option>
+              <option value='Address C'>Addrress C</option>
+            </select>
+          </span>
           <span>
-            <label htmlFor='royalty'>Collection</label>
+            <label htmlFor='Collection'>Collection</label>
             <select name='Collection' id='Collection'>
               <option value='Choose Collection'>Choose Collection</option>
               <option value='Collection A'>Collection A</option>
@@ -212,12 +222,22 @@ const CreateNft = () => {
         </div>
         <br/>
         <p>OR</p>
-          <label htmlFor='newcollection'>Create a New Collection</label>
+        <label htmlFor='newcollection'>Create a New Collection</label>
         <input
           type='text'
           name='newcollection'
           id='newcollection'
           placeholder='Enter New Collection Name'
+          
+        />
+        <br/>
+        <p>Also add the symbol for your new collection</p>
+<label htmlFor='newcollectionsymbol'>Create a New Collection</label>
+        <input
+          type='text'
+          name='newcollectionsymbol'
+          id='newcollectionsymbol'
+          placeholder='Enter New Collection Symbol'
           
         />
         {/* <h5>Put on Sale</h5>
@@ -269,7 +289,7 @@ const CreateNft = () => {
               <img
                 src={assetUrl}
                 alt='Your upload'
-                style={{ height: "300px", width: "300px", position: "center" }}
+                style={{borderRadius: '20px', height: "480px", width: "100%", position: "center" }}
               />
             </div>
           )}
