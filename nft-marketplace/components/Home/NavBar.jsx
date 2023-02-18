@@ -6,12 +6,8 @@ import { ethers } from "ethers";
 import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES } from "@web3auth/base";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setId,
-  setUserName,
-  setWalletAddress,
-  setBalance,
-} from "../../slices/userReducer";
+import { setUserState } from "../../slices/userReducer";
+import { setWeb3State } from "../../slices/web3Reducer";
 import axios from "axios";
 
 function NavBar() {
@@ -50,10 +46,19 @@ function NavBar() {
         );
         data = data.data;
 
-        dispatch(setUserName(data.user.userName));
-        dispatch(setId(data.user._id));
-        dispatch(setWalletAddress(Uaddress));
-        dispatch(setBalance(bal));
+        const userObj = {
+          userName: data.user.userName,
+          _id: data.user._id,
+          walletAddress: Uaddress,
+          balance: bal,
+        };
+        const web3Obj = {
+          // add all the fields that are required
+          // to recreate the provider object
+        };
+
+        dispatch(setUserState(userObj));
+        dispatch(setWeb3State(web3Obj));
       } catch (err) {
         // Error when user close the pop up window
         console.log(err);
@@ -64,12 +69,6 @@ function NavBar() {
   }
 
   let image = `url(/signin.jpg)`;
-  // const [address, setAddress] = useState("");
-  // const { account } = useAccount();
-  // const { data, error, isLoading } = useSigner("80001");
-  // if (error) {
-  //   throw error;
-  // }
 
   async function disconnect() {
     try {
@@ -108,14 +107,16 @@ function NavBar() {
       </span>
 
       {user.walletAddress !== "" ? (
-        <button onClick={() => disconnect()}>Disconnect</button>
+        <>
+          <button onClick={() => disconnect()}>Disconnect</button>
+          <section>
+            <img src='/signin.jpg' alt='' />
+            <a href='/'>{user.userName}</a>
+          </section>
+        </>
       ) : (
         <button onClick={() => initWallet()}>Connect</button>
       )}
-      <section>
-        <img src='/signin.jpg' alt='' />
-        <a href='/'>Profile</a>
-      </section>
     </nav>
   );
 }

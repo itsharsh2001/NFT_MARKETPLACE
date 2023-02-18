@@ -12,6 +12,8 @@ import { create } from "ipfs-http-client";
 import ipfsClient from "ipfs-http-client";
 import classes from "./CreateNft.module.css";
 import { abi } from "../../../contracts/artifacts/contracts/NFT.sol/BtechProejctNFT.json";
+import { useSelector } from "react-redux";
+
 const url =
   "https://polygon-mumbai.g.alchemy.com/v2/Sq5Vw5NGLCscYbvOvYbkNTs21q25_IFD";
 
@@ -25,6 +27,9 @@ const auth =
 const init_url = "https://cloudflare-ipfs.com/ipfs/";
 
 const CreateNft = () => {
+  const user = useSelector((state) => state.user);
+  const web3 = useSelector((state) => state.web3);
+
   let image = `url(/signin.jpg)`;
   let image2 = `url(/signin2.jpg)`;
 
@@ -42,18 +47,6 @@ const CreateNft = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [assetUrl, setassetUrl] = useState("");
-
-  //  NOTE: the following user object should be stored as state variable
-  const user = {
-    _id: "636eb433a5565a863feda551",
-    walletAddress: "0x93cB0bDA79f72FFbA7f9c245f2fBd7d98Aa7e14F",
-    userName: "Default Username",
-    collections: [],
-    socialMedia: [],
-    createdAt: "2022-11-11T20:44:35.214Z",
-    updatedAt: "2022-11-11T20:44:35.214Z",
-    __v: 0,
-  };
 
   async function mint() {
     let cont = new ethers.Contract(address, abi, data);
@@ -118,10 +111,15 @@ const CreateNft = () => {
       imageLinks: [assetUrl],
     };
 
-    axios
-      .post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/item/create`, body)
-      .then((res) => console.log({ res }))
-      .catch((err) => console.log(err));
+    try {
+      const data = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/item/create`,
+        body
+      );
+      console.log({ data });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   console.log("The Item url is : ", assetUrl);
@@ -178,7 +176,7 @@ const CreateNft = () => {
               <option value='Collection C'>Collection C</option>
             </select>
           </span>
-          
+
           {/* <span>
             <label htmlFor='size'>Size</label>
             <input
@@ -198,15 +196,14 @@ const CreateNft = () => {
             />
           </span> */}
         </div>
-        <br/>
+        <br />
         <p>OR</p>
-          <label htmlFor='newcollection'>Create a New Collection</label>
+        <label htmlFor='newcollection'>Create a New Collection</label>
         <input
           type='text'
           name='newcollection'
           id='newcollection'
           placeholder='Enter New Collection Name'
-          
         />
         {/* <h5>Put on Sale</h5>
         <section>
@@ -239,8 +236,6 @@ const CreateNft = () => {
             inputProps={{ "aria-label": "controlled" }}
           />
         </section> */}
-
-
       </section>
 
       <div>
