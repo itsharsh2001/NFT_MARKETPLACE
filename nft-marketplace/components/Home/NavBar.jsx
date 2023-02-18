@@ -20,11 +20,11 @@ function NavBar() {
 
       const web3auth = new Web3Auth({
         clientId: process.env.NEXT_PUBLIC_WEB3_CID,
-        authMode: process.env.NEXT_PUBLIC_WEB3_CID,
+        authMode: process.env.NEXT_PUBLIC_WEB3_MODE,
         chainConfig: {
           chainNamespace: CHAIN_NAMESPACES.EIP155,
           chainId: process.env.NEXT_PUBLIC_WEB3_CHAIN_ID,
-          rpcTarget: process.env.NEXT_PUBLIC_BASE_URL,
+          rpcTarget: process.env.NEXT_PUBLIC_WEB3_URL,
         },
       });
 
@@ -46,15 +46,18 @@ function NavBar() {
         );
         data = data.data;
 
+        const network = await provider.getNetwork();
+        const web3Obj = {
+          network: {
+            ...network,
+          },
+        };
+
         const userObj = {
           userName: data.user.userName,
           _id: data.user._id,
           walletAddress: Uaddress,
           balance: bal,
-        };
-        const web3Obj = {
-          // add all the fields that are required
-          // to recreate the provider object
         };
 
         dispatch(setUserState(userObj));
@@ -72,10 +75,8 @@ function NavBar() {
 
   async function disconnect() {
     try {
-      dispatch(setUserName(""));
-      dispatch(setId(""));
-      dispatch(setWalletAddress(""));
-      dispatch(setBalance(""));
+      dispatch(setUserState(null));
+      dispatch(setWeb3State(null));
     } catch (err) {
       console.log(err);
     }
@@ -85,7 +86,7 @@ function NavBar() {
     <nav className={classes.nav}>
       <h6>Enefty.</h6>
 
-      {user.walletAddress !== "" && (
+      {(user != null && user.walletAddress) !== "" && (
         <ul>
           <Link href='/'>
             <li>DISCOVER</li>
@@ -106,12 +107,12 @@ function NavBar() {
         <SearchIcon className={classes.icon} />
       </span>
 
-      {user.walletAddress !== "" ? (
+      {user != null && user.walletAddress !== "" ? (
         <>
           <button onClick={() => disconnect()}>Disconnect</button>
           <section>
             <img src='/signin.jpg' alt='' />
-            <a href='/'>{user.userName}</a>
+            <a href='/'>{user != null && user.userName}</a>
           </section>
         </>
       ) : (

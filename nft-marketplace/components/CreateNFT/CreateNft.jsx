@@ -5,7 +5,6 @@ import { Switch } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DiamondIcon from "@mui/icons-material/Diamond";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { ethers } from "ethers";
 import axios from "axios";
 import { create } from "ipfs-http-client";
 
@@ -13,6 +12,7 @@ import ipfsClient from "ipfs-http-client";
 import classes from "./CreateNft.module.css";
 import { abi } from "../../../contracts/artifacts/contracts/NFT.sol/BtechProejctNFT.json";
 import { useSelector } from "react-redux";
+import { ethers } from "ethers";
 
 const url =
   "https://polygon-mumbai.g.alchemy.com/v2/Sq5Vw5NGLCscYbvOvYbkNTs21q25_IFD";
@@ -29,6 +29,15 @@ const init_url = "https://cloudflare-ipfs.com/ipfs/";
 const CreateNft = () => {
   const user = useSelector((state) => state.user);
   const web3 = useSelector((state) => state.web3);
+
+  let provider = null;
+  if (user !== null && user.walletAddress !== "") {
+    // if the user is logged in.
+    provider = new ethers.providers.JsonRpcProvider(
+      process.env.NEXT_PUBLIC_WEB3_URL
+    );
+  }
+  console.log({ provider });
 
   let image = `url(/signin.jpg)`;
   let image2 = `url(/signin2.jpg)`;
