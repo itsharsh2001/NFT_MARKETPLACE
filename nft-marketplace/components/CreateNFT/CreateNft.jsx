@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { Switch } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -7,11 +7,13 @@ import DiamondIcon from "@mui/icons-material/Diamond";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import axios from "axios";
 import { create } from "ipfs-http-client";
+import { Web3Auth } from "@web3auth/modal";
+import { CHAIN_NAMESPACES, log } from "@web3auth/base";
 
 import ipfsClient from "ipfs-http-client";
 import classes from "./CreateNft.module.css";
-import { abi } from "../../../contracts/artifacts/contracts/NFT.sol/BtechProejctNFT.json";
-import { useSelector } from "react-redux";
+import { factoryABI } from "../../utils";
+import { contractABI } from "../../utils";
 import { ethers } from "ethers";
 
 const url =
@@ -27,17 +29,11 @@ const auth =
 const init_url = "https://cloudflare-ipfs.com/ipfs/";
 
 const CreateNft = () => {
-  const user = useSelector((state) => state.user);
-  const web3 = useSelector((state) => state.web3);
-
-  let provider = null;
-  if (user !== null && user.walletAddress !== "") {
-    // if the user is logged in.
-    provider = new ethers.providers.JsonRpcProvider(
-      process.env.NEXT_PUBLIC_WEB3_URL
-    );
-  }
-  console.log({ provider });
+  const [collections, setCollections] = useState([]);
+  const [obj, setObj] = useState({
+    user: null,
+    web3provider: null,
+  });
 
   let image = `url(/signin.jpg)`;
   let image2 = `url(/signin2.jpg)`;
@@ -52,21 +48,159 @@ const CreateNft = () => {
   });
   // function to mint nft
   const [file, setFile] = useState();
-
+  const [assetUrl, setassetUrl] = useState("");
+  const [finalUrl, setFinalUrl] = useState("");
+  const [receiver, setReciever] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [assetUrl, setassetUrl] = useState("");
+  const [contractAddress, setContractAddress] = useState("");
+  const [collectionName, setCollectionName] = useState("");
+  const [collectionDescription, setCollectionDescription] = useState("");
 
-  async function mint() {
-    let cont = new ethers.Contract(address, abi, data);
-    // setContract(new ethers.Contract(address,abi,data))
+  // function to initiate wallet
+  async function initWallet() {
+    if (typeof window !== "undefined") {
+      console.log("You are on the browser,You are good to go");
 
+      const web3auth = new Web3Auth({
+        clientId: process.env.NEXT_PUBLIC_WEB3_CID,
+        authMode: process.env.NEXT_PUBLIC_WEB3_MODE,
+        chainConfig: {
+          chainNamespace: CHAIN_NAMESPACES.EIP155,
+          chainId: process.env.NEXT_PUBLIC_WEB3_CHAIN_ID,
+          rpcTarget: process.env.NEXT_PUBLIC_WEB3_URL,
+        },
+      });
+
+      try {
+        await web3auth.initModal();
+        await web3auth.connect();
+
+        const provider = new ethers.providers.Web3Provider(web3auth.provider);
+        const signer = provider.getSigner();
+        const Uaddress = await signer.getAddress();
+        let bal = await provider.getBalance(Uaddress);
+        bal = bal.toString();
+
+        fetchCollections(Uaddress);
+        setObj({ ...obj, user: Uaddress, web3provider: web3auth });
+      } catch (err) {
+        // Error when user close the pop up window
+        console.log("error");
+        console.log(err);
+      }
+    } else {
+      console.log("You are on the server,Cannot execute");
+    }
+  }
+
+  async function fetchCollections(address) {
+    const { data } = await axios.post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/collection/getAll`,
+      {
+        address: address,
+      }
+    );
+    setCollections(data.data);
+  }
+
+  useEffect(() => {
+    const connect = async () => {
+      await initWallet();
+    };
+    connect();
+  }, []);
+
+  // function to filter address
+  function filter_address(address) {
+    let addr = "0x";
+    for (let i = 0; i < address.length; ++i) {
+      if (address[i] !== "0" && address[i] !== "x") {
+        let temp = address.slice(i, address.length);
+        addr += temp;
+        break;
+      }
+    }
+
+    return addr;
+  }
+  async function createNewCollection() {
+    if (collectionName === "" || collectionDescription === "") {
+      return;
+    }
+    const provider = new ethers.providers.Web3Provider(
+      obj.web3provider.provider
+    );
+    const signer = provider.getSigner();
+    let contractAddress = "0xb6e4a7e11E9Aceb17a87EFf565787C3515324939";
+    const userAddress = await signer.getAddress();
+    let FactoryObj = new ethers.Contract(contractAddress, factoryABI, signer);
+    console.log(FactoryObj);
+    console.log("Impl : ", await FactoryObj.implementationContract());
+    console.log(userAddress);
+    // create new contract
+    let txn;
     try {
-      let tx = await cont.safeMint(
-        account.address,
-        "https://gateway.pinata.cloud/ipfs/QmeVXFqj78KRLc5du5ffQKBtzsUTXVbn7PfV8aFL2LaYSP"
+      txn = await FactoryObj.createContract(
+        "Harsh", // this will be the collection name send by user
+        "HSH", // this will be collection symbol send by the user
+        userAddress // wallet address of the connected wallet
+      );
+
+      const receipt = await txn.wait();
+      let new_collection_address = filter_address(receipt.logs[0].topics[1]);
+      console.log("created contract address : ", new_collection_address);
+
+      const payload = {
+        name: collectionName,
+        description: collectionDescription,
+        address: obj.user,
+        contractAddress: new_collection_address,
+      };
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/collection/create`,
+        payload
+      );
+      if (res.data.success) {
+        fetchCollections(obj.user);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function mint(url, id) {
+    const provider = new ethers.providers.Web3Provider(
+      obj.web3provider.provider
+    );
+    const signer = provider.getSigner();
+    const Uaddress = await signer.getAddress();
+    console.log("the user is : ", Uaddress);
+    let contractAddress = "0x727EEad8327b30c17ebff6A46A3cFC27A9405584";
+    let contObj = new ethers.Contract(contractAddress, contractABI, signer);
+    console.log(await contObj.name());
+    console.log(await contObj.symbol());
+
+    // setContract(new ethers.Contract(address,abi,data))
+    if (url === "") {
+      console.log("asset not uploaded");
+      return;
+    }
+
+    // mint the NFT
+    // check that NFT already doesn't exist
+    // if(
+    //   await contObj.
+    // )
+    try {
+      let tx = await contObj.safeMint(
+        Uaddress,
+        id, // Id send or generated for the minting NFT
+        url
       );
       console.log(tx);
+
+      /* @sid */
     } catch (err) {
       throw err;
     }
@@ -81,43 +215,47 @@ const CreateNft = () => {
     });
   };
 
-  const handlenameChange = (event) => {
-    console.log("description : ");
-    setName(event.target.value);
-  };
-  const handledesChange = (event) => {
-    console.log("description : ");
-    setDescription(event.target.value);
-  };
-
   const submitItems = async () => {
     // set the object
     let ob = {
       name: "",
       description: "",
       image: "",
+      createdAt: "",
     };
 
     ob.name = name;
     ob.description = description;
     ob.image = assetUrl;
+    ob.createdAt = new Date();
+    ob = JSON.stringify(ob);
 
-    // try {
-    //   let final_url; // GETTING ERROR HERE
-    //   client.add(ob).then((res) => {
-    //     let last_url = res.path.toString();
-    //     setassetUrl(init_url + last_url);
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    let last_url = "";
+    try {
+      client.add(ob).then((res) => {
+        last_url = res.path.toString();
+        setFinalUrl(init_url + last_url);
+      });
+    } catch (error) {
+      console.log("got err");
+      console.log(error);
+    }
+
+    // call the mint function to mint the NFT
+    try {
+      await mint(init_url + last_url);
+    } catch (err) {
+      console.log(err);
+    }
+
+    /* @sid save object {ob} into the selected collection of the user with the {finalURL} generated above */
 
     const body = {
-      walletAddress: user.walletAddress,
-      ownerId: user._id,
+      address: obj.user,
+      contractAddress: contractAddress,
       name,
       description,
-      imageLinks: [assetUrl],
+      imageLinks: [finalUrl],
     };
 
     try {
@@ -130,8 +268,6 @@ const CreateNft = () => {
       console.log(error);
     }
   };
-
-  console.log("The Item url is : ", assetUrl);
 
   return (
     <div className={classes.createnft}>
@@ -157,6 +293,16 @@ const CreateNft = () => {
           </p>
           {/* PNG, GIF, WEBP OR MP4, Max 1Gb */}
         </span>
+        <br />
+        <h4>Receiver</h4>
+        <input
+          type='text'
+          name='itemname'
+          id='itemname'
+          placeholder='Enter receiver wallet address'
+          value={receiver}
+          onChange={(e) => setReciever(e.target.value)}
+        />
         <h5>Items Information</h5>
         <label htmlFor='itemname'>Item Name</label>
         <input
@@ -164,7 +310,8 @@ const CreateNft = () => {
           name='itemname'
           id='itemname'
           placeholder='Ex: Awesome Artwork!'
-          onChange={handlenameChange}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
         <label htmlFor='description'>Description</label>
         <input
@@ -172,17 +319,30 @@ const CreateNft = () => {
           name='description'
           id='description'
           placeholder='Ex: After purchasing you will be able to receive the logo'
-          onChange={handledesChange}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
 
         <div className={classes.column}>
           <span>
             <label htmlFor='royalty'>Collection</label>
-            <select name='Collection' id='Collection'>
-              <option value='Choose Collection'>Choose Collection</option>
-              <option value='Collection A'>Collection A</option>
-              <option value='Collection B'>Collection B</option>
-              <option value='Collection C'>Collection C</option>
+            <select
+              name='Collection'
+              id='Collection'
+              value={contractAddress}
+              onChange={(e) => setContractAddress(e.target.value || "")}
+            >
+              <option value=''>-- Select an option --</option>
+              {collections.map((collection) => {
+                return (
+                  <option
+                    key={collection._id}
+                    value={collection.contractAddress || ""}
+                  >
+                    {collection.name}
+                  </option>
+                );
+              })}
             </select>
           </span>
 
@@ -205,15 +365,42 @@ const CreateNft = () => {
             />
           </span> */}
         </div>
-        <br />
-        <p>OR</p>
-        <label htmlFor='newcollection'>Create a New Collection</label>
-        <input
-          type='text'
-          name='newcollection'
-          id='newcollection'
-          placeholder='Enter New Collection Name'
-        />
+        {contractAddress === "" && (
+          <>
+            <br />
+            <p>OR</p>
+            <div className={classes.column}>
+              <span>
+                <label htmlFor='newcollection'>Create a New Collection</label>
+                <input
+                  type='text'
+                  name='newcollection'
+                  id='newcollection'
+                  placeholder='Enter Name'
+                  value={collectionName}
+                  onChange={(e) => setCollectionName(e.target.value)}
+                />
+                <input
+                  type='text'
+                  name='newcollection'
+                  id='newcollection'
+                  placeholder='Enter Description'
+                  value={collectionDescription}
+                  onChange={(e) => setCollectionDescription(e.target.value)}
+                />
+                <button
+                  onClick={(e) => {
+                    if (contractAddress === "") {
+                      createNewCollection();
+                    }
+                  }}
+                >
+                  Create Collection
+                </button>
+              </span>
+            </div>
+          </>
+        )}
         {/* <h5>Put on Sale</h5>
         <section>
           <p>You’ll receive bids on this item</p>
@@ -287,7 +474,7 @@ const CreateNft = () => {
           </div>
           <span>
             <img src='/signin.jpg' alt='' />
-            <h3>@{user?.userName}</h3>
+            <h3>@UserName</h3>
           </span>
         </span>
         <button onClick={submitItems}>Create Item</button>

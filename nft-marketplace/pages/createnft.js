@@ -5,7 +5,7 @@ import NavBar from "../components/Home/NavBar";
 export default function CreateNFT() {
   return (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
       <CreateNft />
       <Footer />
     </>
