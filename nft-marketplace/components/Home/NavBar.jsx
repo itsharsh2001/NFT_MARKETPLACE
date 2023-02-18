@@ -1,5 +1,6 @@
 import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import {useState} from 'react';
 import classes from "./NavBar.module.css";
 import Link from "next/link";
 import { ethers } from "ethers";
@@ -12,7 +13,12 @@ import axios from "axios";
 
 function NavBar() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user);
+
+  const [obj,setObj] = useState({
+    user: null,
+    web3provider : null
+  })
 
   async function initWallet() {
     if (typeof window !== "undefined") {
@@ -29,41 +35,43 @@ function NavBar() {
       });
 
       try {
+
         await web3auth.initModal();
         await web3auth.connect();
 
         const provider = new ethers.providers.Web3Provider(web3auth.provider);
         const signer = provider.getSigner();
         const Uaddress = await signer.getAddress();
+        console.log("the user is : ",Uaddress)
         let bal = await provider.getBalance(Uaddress);
         bal = bal.toString();
-
-        let { data } = await axios.post(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/login`,
-          {
-            address: Uaddress,
-          }
-        );
-        data = data.data;
+        setObj({...obj,user:Uaddress,web3provider:web3auth})
+        // let { data } = await axios.post(
+        //   `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/login`,
+        //   {
+        //     address: Uaddress,
+        //   }
+        // );
+        // data = data.data;
 
         const network = await provider.getNetwork();
-        const web3Obj = {
-          network: {
-            ...network,
-          },
-        };
+        // const web3Obj = {
+        //   network: {
+        //     ...network,
+        //   },
+        // };
 
-        const userObj = {
-          userName: data.user.userName,
-          _id: data.user._id,
-          walletAddress: Uaddress,
-          balance: bal,
-        };
-
-        dispatch(setUserState(userObj));
-        dispatch(setWeb3State(web3Obj));
+        // const userObj = {
+        //   userName: data.user.userName,
+        //   _id: data.user._id,
+        //   walletAddress: Uaddress,
+        //   balance: bal,
+        // };
+        // dispatch(setUserState(userObj));
+        // dispatch(setWeb3State(web3Obj));
       } catch (err) {
         // Error when user close the pop up window
+        console.log("error")
         console.log(err);
       }
     } else {
@@ -75,8 +83,10 @@ function NavBar() {
 
   async function disconnect() {
     try {
-      dispatch(setUserState(null));
-      dispatch(setWeb3State(null));
+      // dispatch(setUserState(null));
+      // dispatch(setWeb3State(null));
+      await obj.web3provider.logout()
+      setObj({...obj,user:null})
     } catch (err) {
       console.log(err);
     }
@@ -84,9 +94,9 @@ function NavBar() {
 
   return (
     <nav className={classes.nav}>
-      <h6>Enefty.</h6>
+      <h6>Certifiable.</h6>
 
-      {(user != null && user.walletAddress) !== "" && (
+      {(obj.user != null && obj.user.walletAddress) !== "" && (
         <ul>
           <Link href='/'>
             <li>DISCOVER</li>
@@ -107,12 +117,12 @@ function NavBar() {
         <SearchIcon className={classes.icon} />
       </span>
 
-      {user != null && user.walletAddress !== "" ? (
+      {obj.user != null && obj.user.walletAddress !== "" ? (
         <>
           <button onClick={() => disconnect()}>Disconnect</button>
           <section>
             <img src='/signin.jpg' alt='' />
-            <a href='/'>{user != null && user.userName}</a>
+            <a href='/'>{obj.user != null && obj.user.userName}</a>
           </section>
         </>
       ) : (

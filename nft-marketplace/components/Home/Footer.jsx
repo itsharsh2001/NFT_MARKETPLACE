@@ -9,8 +9,8 @@ function Footer() {
     return (
         <footer className={classes.footer}>
             <span>
-                <h3>Enefty.</h3>
-                <h2>Create, Explore & Collect Digital Art NFTs</h2>
+                <h3>Certifiable.</h3>
+                <h2>Create ,Explore & Verify Digital Certificates</h2>
             </span>
             <section>
                 <ul>
@@ -32,7 +32,7 @@ function Footer() {
                     <YouTubeIcon className={classes.icon}/>
                     <InstagramIcon className={classes.icon}/>
                 </div>
-                <p>© 2021 ENEFTY INC. All Rights Reserved. </p>
+                <p>© 2021 Certifiable INC. All Rights Reserved. </p>
             </section>
         </footer>
     )
