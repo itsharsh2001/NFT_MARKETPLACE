@@ -14,7 +14,6 @@ export default function CreatorPage() {
     (async () => {
       if (router.query.id) {
         try {
-          console.log(process.env.NEXT_PUBLIC_BASE_URL);
           const { data } = await axios.post(
             `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/getAllItems`,
             {

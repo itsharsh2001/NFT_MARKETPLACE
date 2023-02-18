@@ -112,7 +112,9 @@ function NavBar() {
           <button onClick={() => disconnect()}>Disconnect</button>
           <section>
             <img src='/signin.jpg' alt='' />
-            <a href='/'>{user != null && user.userName}</a>
+            <Link href='/creators/[id]' as={`/creators/${user._id}`}>
+              {user != null && user.userName}
+            </Link>
           </section>
         </>
       ) : (

@@ -1,11 +1,15 @@
-import React from "react";
+import React, { use } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import DiamondIcon from "@mui/icons-material/Diamond";
 
 import classes from "./Creator.module.css";
+import Link from "next/link";
 
 const Creator = ({ data }) => {
+  const { user, collections } = data;
+  const items = collections.map((collection) => collection.items).flat();
+
   let image = `url(/signin.jpg)`;
   let image2 = `url(/signin2.jpg)`;
 
@@ -19,8 +23,8 @@ const Creator = ({ data }) => {
               style={{ background: image2 }}
             ></span>
             <div>
-              <h4>Wanda</h4>
-              <p>@wanda</p>
+              <h4>{user.userName}</h4>
+              <p>@{user.walletAddress}</p>
             </div>
           </section>
           <h1>
@@ -59,10 +63,7 @@ const Creator = ({ data }) => {
 
       <main className={classes.main}>
         {
-          // data.map((item , index)=>{
-          // console.log(item);
-          data[0].items.map((item, index) => {
-            console.log(item);
+          items.map((item, index) => {
             return (
               <div id={item._id}>
                 <div
@@ -70,7 +71,6 @@ const Creator = ({ data }) => {
                   style={{ background: `url(${item.imageLinks[0]})` }}
                 ></div>
                 <span>
-                  <h3>{item.description}</h3>
                   <div>
                     <p>Current Bid</p>
                     <p>End In</p>
@@ -90,11 +90,15 @@ const Creator = ({ data }) => {
                         style={{ background: image2 }}
                       ></span>
                       <div>
-                        <p>Owner</p>
                         <h6>{item.name}</h6>
                       </div>
                     </section>
-                    <button>Place Bid</button>
+
+                    <button>
+                      <Link href='/item/[id]' as={`/item/${item._id}`}>
+                        Place Bid
+                      </Link>
+                    </button>
                   </div>
                 </span>
               </div>
