@@ -96,7 +96,7 @@ const Creator = ({ data }) => {
 
                     <button>
                       <Link href='/item/[id]' as={`/item/${item._id}`}>
-                        Place Bid
+                        View
                       </Link>
                     </button>
                   </div>
