@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import { Switch } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DiamondIcon from "@mui/icons-material/Diamond";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -9,12 +8,13 @@ import axios from "axios";
 import { create } from "ipfs-http-client";
 import { Web3Auth } from "@web3auth/modal";
 import { CHAIN_NAMESPACES, log } from "@web3auth/base";
-
-import ipfsClient from "ipfs-http-client";
 import classes from "./CreateNft.module.css";
 import { factoryABI } from "../../utils";
 import { contractABI } from "../../utils";
 import { ethers } from "ethers";
+import { useDispatch } from "react-redux";
+import { setUserState } from "../../slices/userReducer";
+import { useRouter } from "next/router";
 
 const url =
   "https://polygon-mumbai.g.alchemy.com/v2/Sq5Vw5NGLCscYbvOvYbkNTs21q25_IFD";
@@ -34,6 +34,16 @@ const CreateNft = () => {
     user: null,
     web3provider: null,
   });
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [assetUrl, setassetUrl] = useState("");
+  const [finalUrl, setFinalUrl] = useState("");
+  const [receiver, setReciever] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [contractAddress, setContractAddress] = useState("");
+  const [collectionName, setCollectionName] = useState("");
+  const [collectionDescription, setCollectionDescription] = useState("");
 
   let image = `url(/signin.jpg)`;
   let image2 = `url(/signin2.jpg)`;
@@ -47,15 +57,6 @@ const CreateNft = () => {
     },
   });
   // function to mint nft
-  const [file, setFile] = useState();
-  const [assetUrl, setassetUrl] = useState("");
-  const [finalUrl, setFinalUrl] = useState("");
-  const [receiver, setReciever] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [contractAddress, setContractAddress] = useState("");
-  const [collectionName, setCollectionName] = useState("");
-  const [collectionDescription, setCollectionDescription] = useState("");
 
   // function to initiate wallet
   async function initWallet() {
@@ -95,13 +96,17 @@ const CreateNft = () => {
   }
 
   async function fetchCollections(address) {
-    const { data } = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/collection/getAll`,
-      {
-        address: address,
-      }
-    );
-    setCollections(data.data);
+    try {
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/collection/getAll`,
+        {
+          address: address,
+        }
+      );
+      setCollections(data.data);
+    } catch (error) {
+      console.log("User Doesn't have any collection.");
+    }
   }
 
   useEffect(() => {
@@ -170,49 +175,46 @@ const CreateNft = () => {
   }
 
   async function mint(url, id) {
-    const provider = new ethers.providers.Web3Provider(
-      obj.web3provider.provider
-    );
-    const signer = provider.getSigner();
-    const Uaddress = await signer.getAddress();
-    console.log("the user is : ", Uaddress);
-    let contractAddress = "0x727EEad8327b30c17ebff6A46A3cFC27A9405584";
-    let contObj = new ethers.Contract(contractAddress, contractABI, signer);
-    console.log(await contObj.name());
-    console.log(await contObj.symbol());
-
-    // setContract(new ethers.Contract(address,abi,data))
-    if (url === "") {
-      console.log("asset not uploaded");
-      return;
-    }
-
-    // mint the NFT
-    // check that NFT already doesn't exist
-    // if(
-    //   await contObj.
-    // )
     try {
+      const url = finalUrl;
+      const provider = new ethers.providers.Web3Provider(
+        obj.web3provider.provider
+      );
+      const signer = provider.getSigner();
+      let contObj = new ethers.Contract(contractAddress, contractABI, signer);
+      console.log(await contObj.name());
+      console.log(await contObj.symbol());
+
+      // setContract(new ethers.Contract(address,abi,data))
+      if (url === "") {
+        console.log("asset not uploaded");
+        return;
+      }
+
+      // mint the NFT
+      // check that NFT already doesn't exist
+      // if(
+      //   await contObj.
+      // )
+
       let tx = await contObj.safeMint(
-        Uaddress,
+        receiver,
         id, // Id send or generated for the minting NFT
         url
       );
       console.log(tx);
-
-      /* @sid */
-    } catch (err) {
-      throw err;
+      return true;
+    } catch (error) {
+      throw error;
     }
   }
 
-  const handleChange = (event) => {
+  const handleChange = async (event) => {
     console.log("Working Switch");
     // setFile(event.target.files[0])
-    client.add(event.target.files[0]).then((res) => {
-      let last_url = res.path.toString();
-      setassetUrl(init_url + last_url);
-    });
+    const res = await client.add(event.target.files[0]);
+    let last_url = res.path.toString();
+    setassetUrl(init_url + last_url);
   };
 
   const submitItems = async () => {
@@ -232,40 +234,60 @@ const CreateNft = () => {
 
     let last_url = "";
     try {
-      client.add(ob).then((res) => {
-        last_url = res.path.toString();
-        setFinalUrl(init_url + last_url);
-      });
+      const res = await client.add(ob);
+      last_url = res.path.toString();
+      last_url = init_url + last_url;
+      setFinalUrl(last_url);
     } catch (error) {
       console.log("got err");
       console.log(error);
+      return;
     }
 
     // call the mint function to mint the NFT
+    let resMint = false;
     try {
-      await mint(init_url + last_url);
+      const randNum = new Date().valueOf();
+      resMint = await mint(last_url, randNum);
     } catch (err) {
-      console.log(err);
+      console.log("Something went wrong while minting.");
     }
 
     /* @sid save object {ob} into the selected collection of the user with the {finalURL} generated above */
 
-    const body = {
-      address: obj.user,
-      contractAddress: contractAddress,
-      name,
-      description,
-      imageLinks: [finalUrl],
-    };
+    if (resMint) {
+      const body = {
+        address: obj.user,
+        contractAddress: contractAddress,
+        name,
+        description,
+        imageLinks: [assetUrl],
+      };
+      try {
+        let data = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/item/create`,
+          body
+        );
+        console.log({ data });
 
-    try {
-      const data = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/item/create`,
-        body
-      );
-      console.log({ data });
-    } catch (error) {
-      console.log(error);
+        data = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/login`,
+          { address: obj.user }
+        );
+        const user = data.data.data.user;
+
+        const userObj = {
+          userName: user.userName,
+          _id: user._id,
+          walletAddress: user.address,
+          balance: 0,
+        };
+
+        dispatch(setUserState(userObj));
+        router.push("/creators");
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
