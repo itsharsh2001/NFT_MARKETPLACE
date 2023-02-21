@@ -347,7 +347,7 @@ const CreateNft = () => {
 
         <div className={classes.column}>
           <span>
-            <label htmlFor='royalty'>Collection</label>
+            <label htmlFor='Collection'>Collection</label>
             <select
               name='Collection'
               id='Collection'
@@ -470,7 +470,12 @@ const CreateNft = () => {
               <img
                 src={assetUrl}
                 alt='Your upload'
-                style={{ height: "300px", width: "300px", position: "center" }}
+                style={{
+                  borderRadius: "20px",
+                  height: "480px",
+                  width: "100%",
+                  position: "center",
+                }}
               />
             </div>
           )}
