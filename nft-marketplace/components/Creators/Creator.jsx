@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import DiamondIcon from "@mui/icons-material/Diamond";
@@ -7,8 +7,14 @@ import classes from "./Creator.module.css";
 import Link from "next/link";
 
 const Creator = ({ data }) => {
+  const [followers, setFollowers] = useState(Math.floor(Math.random() * 100));
   const { user, collections } = data;
   const items = collections.map((collection) => collection.items).flat();
+  items.sort(function (a, b) {
+    let A = new Date(a.createdAt),
+      B = new Date(b.createdAt);
+    return B - A;
+  });
 
   let image = `url(/signin.jpg)`;
   let image2 = `url(/signin2.jpg)`;
@@ -32,7 +38,7 @@ const Creator = ({ data }) => {
             <AutoAwesomeIcon style={{ fontSize: "40px", color: "gold" }} />
           </h1>
           <section>
-            <button>Follow</button>
+            <button onClick={(e) => setFollowers(followers + 1)}>Follow</button>
             <button>...</button>
           </section>
         </div>
@@ -40,11 +46,11 @@ const Creator = ({ data }) => {
           <span>
             <div>
               <p>Followers</p>
-              <h6>160</h6>
+              <h6>{followers}</h6>
             </div>
             <div>
               <p>Following</p>
-              <h6>345</h6>
+              <h6>{Math.floor(Math.random() * 100)}</h6>
             </div>
             <CloudUploadIcon className={classes.icon} />
           </span>
@@ -52,11 +58,8 @@ const Creator = ({ data }) => {
       </header>
 
       <ul className={classes.ul}>
-        <li>Created 57</li>
-        <li>Collected 20</li>
-        <li>Split 1</li>
-        <li>Offers Received 4</li>
-        <li>Offers Made 3</li>
+        <li>Collections {collections.length}</li>
+        <li>Items {items.length}</li>
       </ul>
 
       <hr className={classes.hr} />

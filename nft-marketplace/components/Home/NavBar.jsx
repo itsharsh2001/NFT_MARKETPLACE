@@ -84,17 +84,17 @@ function NavBar() {
 
   return (
     <nav className={classes.nav}>
-      <h6>Enefty.</h6>
+      <h6>Certifiable</h6>
 
       {(user != null && user.walletAddress) !== "" && (
         <ul>
           <Link href='/'>
             <li>DISCOVER</li>
           </Link>
-          <Link href='/'>
+          <Link href='/creators'>
             <li>CREATORS</li>
           </Link>
-          <Link href='/'>
+          <Link href='/creators'>
             <li>COLLECTORS</li>
           </Link>
           <Link href='/'>

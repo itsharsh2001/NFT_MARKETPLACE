@@ -10,11 +10,13 @@ import NewItems from "../components/Home/NewItems";
 import Banner from "../components/Home/Banner";
 import JoinTheCommunity from "../components/Home/JoinTheCommunity";
 import Updates from "../components/Home/Updates";
+import Creators from "./creators";
 
 export default function Home() {
   return (
     <>
-      <NavBar />
+      <Creators />
+      {/* <NavBar />
       <TopCollection/>
       <Carousal/>
       <PopularCreators/>
@@ -22,7 +24,7 @@ export default function Home() {
       <Banner/>
       <JoinTheCommunity/>
       <Updates/>
-      <Footer/>
+      <Footer /> */}
     </>
   );
 }

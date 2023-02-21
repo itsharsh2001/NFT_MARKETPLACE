@@ -28,14 +28,19 @@ const Detail = ({ data }) => {
       </Swiper>
       <section>
         <main>
-          <h1>{data.name}</h1>
-          <p>{data.description}</p>
-          <p>
-            <strong>owner :</strong> {data.ownerId}
-          </p>
-          <p>
-            <strong>collection :</strong> {data.collectionId}
-          </p>
+          <span>
+            <h1>{data.name}</h1>
+            <p>{data.description}</p>
+            <p>
+              <strong>Owner :</strong> {data.ownerAddress}
+            </p>
+            <p>
+              <strong>Collection :</strong> {data.contractAddress}
+            </p>
+            <p>
+              <strong>Created at :</strong> {data.createdAt}
+            </p>
+          </span>
         </main>
       </section>
     </header>

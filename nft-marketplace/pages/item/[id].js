@@ -14,7 +14,7 @@ export default function ItemDetail() {
       if (router.query.id) {
         try {
           const { data } = await axios.post(
-            "http://localhost:2100/api/v1/item/get",
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/item/get`,
             {
               itemId: router.query.id,
             }

@@ -6,24 +6,23 @@ let image = `url(/signin.jpg)`;
 let image2 = `url(/signin2.jpg)`;
 
 const Card = ({ data }) => {
-  const { userName, walletAddress, _id, collections } = data;
   return (
     <>
-      <Link href='/creators/[id]' as={`/creators/${_id}`}>
+      <Link href='/creators/[id]' as={`/creators/${data ? data._id : ""}`}>
         <span className={classes.card}>
           {/* <img src={image} alt="cardimage" /> */}
           <span style={{ background: image }}></span>
           <div>
             <span style={{ background: image2 }}></span>
             <span>
-              <h4>{userName}</h4>
-              <p>@{_id}</p>
+              <h4>{data ? data.userName : "Username"}</h4>
+              <p>@{data ? data._id : "Handle"}</p>
             </span>
           </div>
           <section>
             <span>
               <p>Collections</p>
-              <h4>{collections.length}</h4>
+              <h4>{data ? data.collections.length : 0}</h4>
             </span>
             <span>
               <p>Followers</p>
