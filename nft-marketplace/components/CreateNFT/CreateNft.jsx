@@ -366,25 +366,6 @@ const CreateNft = () => {
               })}
             </select>
           </span>
-
-          {/* <span>
-            <label htmlFor='size'>Size</label>
-            <input
-              type='text'
-              name='size'
-              id='size'
-              placeholder='Ex: 1000x1000'
-            />
-          </span>
-          <span>
-            <label htmlFor='property'>Property</label>
-            <input
-              type='text'
-              name='property'
-              id='property'
-              placeholder='Ex: property'
-            />
-          </span> */}
         </div>
         {contractAddress === "" && (
           <>

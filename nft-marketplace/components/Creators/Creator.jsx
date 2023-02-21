@@ -1,19 +1,59 @@
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import DiamondIcon from "@mui/icons-material/Diamond";
 
 import classes from "./Creator.module.css";
 import Link from "next/link";
+import axios from "axios";
 
 const Creator = ({ data }) => {
-  const { user, collections } = data;
-  const items = collections.map((collection) => collection.items).flat();
-  items.sort(function (a, b) {
-    let A = new Date(a.createdAt),
-      B = new Date(b.createdAt);
-    return B - A;
-  });
+  const user = data.user;
+  const [collections, setCollections] = useState([]);
+  const [collectionId, setCollectionId] = useState("");
+  const [items, setItems] = useState([]);
+
+  // we obtained this user object. Now obtai getAllCollections
+  // {{localUrl}}/api/v1/collection/getAll
+  useEffect(() => {
+    const getCollections = async () => {
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/collection/getAll`,
+          { address: user.walletAddress }
+        );
+        setCollections(res.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCollections();
+  }, []);
+
+  useEffect(() => {
+    const getItems = async () => {
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/collection/get`,
+          { collectionId }
+        );
+
+        let itemsObj = res.data.data.items;
+        itemsObj.sort(function (a, b) {
+          let A = new Date(a.createdAt),
+            B = new Date(b.createdAt);
+          return B - A;
+        });
+        setItems(itemsObj);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (collectionId !== "") getItems();
+    else setItems([]);
+  }, [collectionId]);
+
+  // const { collections } = data;
 
   let image = `url(/signin.jpg)`;
   let image2 = `url(/signin2.jpg)`;
@@ -36,6 +76,22 @@ const Creator = ({ data }) => {
             Create Something Awesome For You{" "}
             <AutoAwesomeIcon style={{ fontSize: "40px", color: "gold" }} />
           </h1>
+
+          <select
+            name='Collection'
+            id='Collection'
+            value={collectionId}
+            onChange={(e) => setCollectionId(e.target.value || "")}
+          >
+            <option value=''>-- Select an option --</option>
+            {collections.map((collection) => {
+              return (
+                <option key={collection._id} value={collection._id || ""}>
+                  {collection.name} -- ({collection.items.length})
+                </option>
+              );
+            })}
+          </select>
         </div>
         <span className={classes.imgdiv} style={{ background: image }}>
           <span>
@@ -58,7 +114,7 @@ const Creator = ({ data }) => {
         {
           items.map((item, index) => {
             return (
-              <div id={item._id}>
+              <div key={index}>
                 <div
                   className={classes.imgdiv1}
                   style={{ background: `url(${item.imageLinks[0]})` }}

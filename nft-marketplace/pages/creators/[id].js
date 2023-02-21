@@ -14,13 +14,13 @@ export default function CreatorPage() {
     (async () => {
       if (router.query.id) {
         try {
-          const { data } = await axios.post(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/getAllItems`,
+          const res = await axios.post(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/getById`,
             {
               userId: router.query.id,
             }
           );
-          setData(data);
+          res.data.data && setData(res.data.data);
         } catch (error) {
           console.log(error.response.data);
         }
@@ -31,7 +31,7 @@ export default function CreatorPage() {
   return (
     <>
       <NavBar />
-      {data && <Creator data={data.data} />}
+      {data && <Creator data={data} />}
       <Footer />
     </>
   );
