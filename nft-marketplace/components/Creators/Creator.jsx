@@ -7,7 +7,6 @@ import classes from "./Creator.module.css";
 import Link from "next/link";
 
 const Creator = ({ data }) => {
-  const [followers, setFollowers] = useState(Math.floor(Math.random() * 100));
   const { user, collections } = data;
   const items = collections.map((collection) => collection.items).flat();
   items.sort(function (a, b) {
@@ -37,30 +36,21 @@ const Creator = ({ data }) => {
             Create Something Awesome For You{" "}
             <AutoAwesomeIcon style={{ fontSize: "40px", color: "gold" }} />
           </h1>
-          <section>
-            <button onClick={(e) => setFollowers(followers + 1)}>Follow</button>
-            <button>...</button>
-          </section>
         </div>
         <span className={classes.imgdiv} style={{ background: image }}>
           <span>
             <div>
-              <p>Followers</p>
-              <h6>{followers}</h6>
+              <p>Collections</p>
+              <h6>{collections.length}</h6>
             </div>
             <div>
-              <p>Following</p>
-              <h6>{Math.floor(Math.random() * 100)}</h6>
+              <p>Itmes</p>
+              <h6>{items.length}</h6>
             </div>
             <CloudUploadIcon className={classes.icon} />
           </span>
         </span>
       </header>
-
-      <ul className={classes.ul}>
-        <li>Collections {collections.length}</li>
-        <li>Items {items.length}</li>
-      </ul>
 
       <hr className={classes.hr} />
 
@@ -74,17 +64,6 @@ const Creator = ({ data }) => {
                   style={{ background: `url(${item.imageLinks[0]})` }}
                 ></div>
                 <span>
-                  <div>
-                    <p>Current Bid</p>
-                    <p>End In</p>
-                  </div>
-                  <div>
-                    <h6>
-                      <DiamondIcon />
-                      {item.price} ETH
-                    </h6>
-                    <h6>22h 50m 22s</h6>
-                  </div>
                   <div className={classes.greenbutton}>
                     {/* <div style={{ background: image1 }}></div> */}
                     <section>

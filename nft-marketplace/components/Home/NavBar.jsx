@@ -49,13 +49,6 @@ function NavBar() {
         );
         data = data.data;
 
-        const network = await provider.getNetwork();
-        const web3Obj = {
-          network: {
-            ...network,
-          },
-        };
-
         const userObj = {
           userName: data.user.userName,
           _id: data.user._id,
@@ -64,7 +57,6 @@ function NavBar() {
         };
 
         dispatch(setUserState(userObj));
-        dispatch(setWeb3State(web3Obj));
       } catch (err) {
         // Error when user close the pop up window
         console.log(err);

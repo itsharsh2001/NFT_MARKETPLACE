@@ -24,11 +24,7 @@ const Card = ({ data }) => {
               <p>Collections</p>
               <h4>{data ? data.collections.length : 0}</h4>
             </span>
-            <span>
-              <p>Followers</p>
-              <h4>1.000</h4>
-            </span>
-            <button>Follow</button>
+            <button>Profile</button>
           </section>
           <section className={classes.imgspan}>
             <span style={{ background: image }}></span>

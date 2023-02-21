@@ -176,7 +176,6 @@ const CreateNft = () => {
 
   async function mint(url, id) {
     try {
-      const url = finalUrl;
       const provider = new ethers.providers.Web3Provider(
         obj.web3provider.provider
       );
@@ -483,9 +482,8 @@ const CreateNft = () => {
         <span>
           <section>
             <h5>{name == "" ? "Item Name" : name}</h5>
-            <FavoriteBorderIcon className={classes.icon2} />
           </section>
-          <div>
+          {/* <div>
             <section>
               <p>Reserve Price</p>
               <h6>
@@ -498,10 +496,10 @@ const CreateNft = () => {
                 <FavoriteIcon className={classes.icon3} />0
               </h6>
             </section>
-          </div>
+          </div> */}
           <span>
             <img src='/signin.jpg' alt='' />
-            <h3>@UserName</h3>
+            <small>@{obj.user ? obj.user : "Address"}</small>
           </span>
         </span>
         <button onClick={submitItems}>Create Item</button>
