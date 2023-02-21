@@ -93,13 +93,13 @@ function NavBar() {
 
     try {
       const data = await axios.post(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/login`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/get`,
         { address: search }
       );
       const user = data.data.data.user;
       console.log({ data });
       if (user) router.push(`/creators/${user._id}`);
-      else router.push("/creators");
+      else router.replace("/creators");
     } catch (error) {
       console.log(error);
     }
@@ -117,22 +117,24 @@ function NavBar() {
           <Link href='/creators'>
             <li>CREATORS</li>
           </Link>
-          <Link href='/creators'>
-            <li>COLLECTORS</li>
-          </Link>
           <Link href='/'>
             <li>STATS</li>
           </Link>
+          {user && (
+            <Link href={`/creators/${user._id}`}>
+              <li>MY PAGE</li>
+            </Link>
+          )}
         </ul>
       )}
       <span>
+        <SearchIcon className={classes.icon} onClick={handleSearch} />
         <input
           type='text'
           value={search}
           placeholder='Search Creator by address'
           onChange={(e) => setSearch(e.target.value)}
         />
-        <SearchIcon className={classes.icon} onClick={handleSearch} />
       </span>
 
       {user != null && user.walletAddress !== "" ? (

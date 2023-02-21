@@ -20,11 +20,8 @@ function Footer() {
           <Link href='/'>
             <li>TERM & CONDITION</li>
           </Link>
-          <Link href='/'>
+          <Link href='https://en.wikipedia.org/wiki/Next.js'>
             <li>ABOUT US</li>
-          </Link>
-          <Link href='/'>
-            <li>FAQ</li>
           </Link>
         </ul>
         <div>
@@ -32,7 +29,7 @@ function Footer() {
           <YouTubeIcon className={classes.icon} />
           <InstagramIcon className={classes.icon} />
         </div>
-        <p>© 2021 ENEFTY INC. All Rights Reserved. </p>
+        <p>© 2023 Certifiable INC. All Rights Reserved. </p>
       </section>
     </footer>
   );

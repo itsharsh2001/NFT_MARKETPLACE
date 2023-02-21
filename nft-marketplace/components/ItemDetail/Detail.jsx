@@ -5,6 +5,10 @@ import "swiper/css";
 import classes from "./Detail.module.css";
 
 const Detail = ({ data }) => {
+  async function handleVerify(event) {
+    alert("handle verify.");
+  }
+
   return (
     <header className={classes.header}>
       <Swiper
@@ -40,6 +44,10 @@ const Detail = ({ data }) => {
             <p>
               <strong>Created at :</strong> {data.createdAt}
             </p>
+
+            <div className={classes.greenbutton}>
+              <button onClick={(e) => handleVerify(e)}>Verify</button>
+            </div>
           </span>
         </main>
       </section>

@@ -21,16 +21,7 @@ const Creators = () => {
   return (
     <>
       <h1 className={classes.creatorsh1}>Meet Our Great Creators</h1>
-      <span className={classes.creatorspan}>
-        <div>
-          <AppsIcon />
-          <p>Category</p>
-        </div>
-        <div>
-          <TuneIcon />
-          <p>Sort By</p>
-        </div>
-      </span>
+      <span className={classes.creatorspan}></span>
 
       <section className={classes.creatorsection}>
         {data &&
