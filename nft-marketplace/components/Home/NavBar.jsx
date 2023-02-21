@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import classes from "./NavBar.module.css";
 import Link from "next/link";
@@ -9,10 +9,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { setUserState } from "../../slices/userReducer";
 import { setWeb3State } from "../../slices/web3Reducer";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 function NavBar() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const user = useSelector((state) => state.user);
+  const [search, setSearch] = useState("");
 
   async function initWallet() {
     if (typeof window !== "undefined") {
@@ -82,6 +85,26 @@ function NavBar() {
     }
   }
 
+  async function handleSearch(event) {
+    if (search === "") {
+      alert("Search address can't be empty!");
+      return;
+    }
+
+    try {
+      const data = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/login`,
+        { address: search }
+      );
+      const user = data.data.data.user;
+      console.log({ data });
+      if (user) router.push(`/creators/${user._id}`);
+      else router.push("/creators");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <nav className={classes.nav}>
       <h6>Certifiable</h6>
@@ -103,8 +126,13 @@ function NavBar() {
         </ul>
       )}
       <span>
-        <input type='text' placeholder='Search Artwork/Creator Name' />
-        <SearchIcon className={classes.icon} />
+        <input
+          type='text'
+          value={search}
+          placeholder='Search Creator by address'
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <SearchIcon className={classes.icon} onClick={handleSearch} />
       </span>
 
       {user != null && user.walletAddress !== "" ? (
