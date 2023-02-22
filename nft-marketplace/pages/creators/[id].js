@@ -14,13 +14,29 @@ export default function CreatorPage() {
     (async () => {
       if (router.query.id) {
         try {
-          const res = await axios.post(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/getById`,
-            {
-              userId: router.query.id,
-            }
-          );
-          res.data.data && setData(res.data.data);
+          const addressRegex = /^0x[a-fA-F0-9]{40}$/;
+          let res;
+          if (router.query.id.match(addressRegex)) {
+            console.log("regex provided");
+            res = await axios.post(
+              `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/get`,
+              {
+                address: router.query.id,
+              }
+            );
+          } else {
+            res = await axios.post(
+              `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/getById`,
+              {
+                userId: router.query.id,
+              }
+            );
+          }
+
+          if (res.data.data.user) setData(res.data.data);
+          else {
+            router.replace("/creators");
+          }
         } catch (error) {
           console.log(error.response.data);
         }

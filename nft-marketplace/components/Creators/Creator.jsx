@@ -83,7 +83,7 @@ const Creator = ({ data }) => {
             value={collectionId}
             onChange={(e) => setCollectionId(e.target.value || "")}
           >
-            <option value=''>-- Select an option --</option>
+            <option value=''>-- Choose category --</option>
             {collections.map((collection) => {
               return (
                 <option key={collection._id} value={collection._id || ""}>

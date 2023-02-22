@@ -480,7 +480,7 @@ const CreateNft = () => {
           </div> */}
           <span>
             <img src='/signin.jpg' alt='' />
-            <small>@{obj.user ? obj.user : "Address"}</small>
+            <h6>@walletAddress</h6>
           </span>
         </span>
         <button onClick={submitItems}>Create Item</button>
