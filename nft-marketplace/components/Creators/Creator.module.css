@@ -10,6 +10,21 @@
   /* background: red; */
 }
 
+.header select{
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* padding: none; */
+    /* padding-top: 4.5%; */
+    padding-bottom: 5px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #F1F1F1;
+    color: #999999;
+}
+
 .header > div {
   flex: 0.45;
   width: 90%;
