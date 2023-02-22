@@ -10,19 +10,19 @@
   /* background: red; */
 }
 
-.header select{
-    font-family: 'Urbanist';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 17px;
-    /* padding: none; */
-    /* padding-top: 4.5%; */
-    padding-bottom: 5px;
-    border: none;
-    outline: none;
-    border-bottom: 1px solid #F1F1F1;
-    color: #999999;
+.header select {
+  font-family: "Urbanist";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  /* padding: none; */
+  /* padding-top: 4.5%; */
+  padding-bottom: 5px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #f1f1f1;
+  color: #999999;
 }
 
 .header > div {
@@ -146,7 +146,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
-  text-transform: lowercase;
+  text-transform: none;
   color: #101010;
 }
 
