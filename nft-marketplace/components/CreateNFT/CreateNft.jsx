@@ -16,11 +16,6 @@ import { useDispatch } from "react-redux";
 import { setUserState } from "../../slices/userReducer";
 import { useRouter } from "next/router";
 
-const url =
-  "https://polygon-mumbai.g.alchemy.com/v2/Sq5Vw5NGLCscYbvOvYbkNTs21q25_IFD";
-
-const address = "0x93CF0E514e4D60D0986a13D0cb95A58ec4eA0197";
-
 const projectId = "296iTBim8eN48PB5QsQeyRPBzoF";
 const projectSecret = "76bfd111bd80b8380f4f5528034c4db9";
 const auth =

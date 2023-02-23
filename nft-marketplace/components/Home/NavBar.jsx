@@ -109,7 +109,7 @@ function NavBar() {
           <Link href='/creators'>
             <li>CREATORS</li>
           </Link>
-          <Link href='/'>
+          <Link href='/stats'>
             <li>STATS</li>
           </Link>
           {user && (

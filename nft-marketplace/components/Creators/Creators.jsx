@@ -13,7 +13,6 @@ const Creators = () => {
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/getAllUsers`
       );
       setData(res.data.data);
-      console.log({ data });
     };
     getData();
   }, []);
