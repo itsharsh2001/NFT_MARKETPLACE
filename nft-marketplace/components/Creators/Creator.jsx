@@ -65,7 +65,11 @@ const Creator = ({ data }) => {
           <section>
             <span
               className={classes.smallimg}
-              style={{ background: image2 }}
+              style={{
+                background: user.profilePic
+                  ? `url(${user.profilePic})`
+                  : image2,
+              }}
             ></span>
             <div>
               <h4>{user.userName}</h4>
@@ -93,7 +97,14 @@ const Creator = ({ data }) => {
             })}
           </select>
         </div>
-        <span className={classes.imgdiv} style={{ background: image }}>
+        <span
+          className={classes.imgdiv}
+          style={{
+            background: user.backgroundPic
+              ? `url(${user.backgroundPic})`
+              : image1,
+          }}
+        >
           <span>
             <div>
               <p>Collections</p>

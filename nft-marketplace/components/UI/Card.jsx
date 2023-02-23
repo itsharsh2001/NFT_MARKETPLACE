@@ -6,14 +6,27 @@ let image = `url(/signin.jpg)`;
 let image2 = `url(/signin2.jpg)`;
 
 const Card = ({ data }) => {
+  console.log({ data });
   return (
     <>
       <Link href='/creators/[id]' as={`/creators/${data ? data._id : ""}`}>
         <span className={classes.card}>
           {/* <img src={image} alt="cardimage" /> */}
-          <span style={{ background: image }}></span>
+          <span
+            style={{
+              background: data.backgroundPic
+                ? `url(${data.backgroundPic})`
+                : image,
+            }}
+          ></span>
           <div>
-            <span style={{ background: image2 }}></span>
+            <span
+              style={{
+                background: data.profilePic
+                  ? `url(${data.profilePic})`
+                  : image2,
+              }}
+            ></span>
             <span>
               <h4>{data ? data.userName : "Username"}</h4>
               <p>@{data ? data._id : "Handle"}</p>

@@ -1,0 +1,250 @@
+.header {
+    width: 100%;
+    height: 80vh;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-top: 5vh;
+    margin-bottom: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+
+.slider {
+    width: 50%;
+    height: 100%;
+}
+
+/* .slider span{
+    width: 100%;
+    height: 100%;
+} */
+
+/* .slider div div{
+    width: 100%;
+    height: 100%;
+} */
+.imgdiv {
+    width: 90%;
+    height: 100%;
+    border-radius: 20px;
+
+    background-size: cover!important;
+    background-position:center!important;
+    /* background-repeat: none!important; */
+}
+
+.imgdiv span {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px;
+    /* gap: 20px; */
+
+    position: absolute;
+    /* width: 330px; */
+    width: 55%;
+    /* height: 224px; */
+    height: 30%;
+    left: 5%;
+    top: 55%;
+
+    background: #FFFFFF;
+    border-radius: 20px;
+}
+
+.imgdiv span h3 {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 25px;
+    /* or 150% */
+
+    letter-spacing: 0.01em;
+
+    color: #101010;
+}
+
+.imgdiv span div {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.imgdiv p {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    letter-spacing: 0.01em;
+
+    color: #999999;
+}
+
+.imgdiv h6 {
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    letter-spacing: 0.01em;
+
+    color: #101010;
+}
+
+.greenbutton {
+    display: block !important;
+    align-content: center;
+}
+
+.greenbutton div{
+    /* border-radius: 50%; */
+    width: 50px!important;
+    height: 50px;
+    background-size: contain;
+    background-position:center;
+    background-repeat: none;
+}
+
+.imgdiv button {
+    float: right;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* padding: 12px 24px; */
+    outline: none;
+    width: 50%;
+    /* flex: 0.4; */
+    /* height: 3em; */
+    /* height: 70%; */
+    border: none;
+    background: #DDF247;
+    border-radius: 8px;
+    /* flex: 0.15; */
+    font-family: 'Urbanist';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    /* line-height: 26px; */
+    /* identical to box height, or 162% */
+
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #101010;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px 0px #00000016;
+    transition: all 0.5s ease 0s;
+}
+
+.imgdiv button:hover,
+.imgdiv button:active {
+    transform: scale(1.2);
+}
+
+
+.header section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+    height: 65%;
+}
+
+.header section h1 {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.6em;
+    line-height: 48px;
+    color: #101010;
+}
+
+.header section p {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 0.9em;
+    /* line-height: 22px; */
+    border: none;
+    outline: none;
+    letter-spacing: 0.01em;
+    color: #999999;
+    width: 90%;
+}
+
+.header section label {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1em;
+    /* line-height: 14px; */
+    color: #101010;
+}
+
+.header section input,
+.header section input::placeholder {
+    /* font-family: 'Urbanist'; */
+    font-style: normal;
+    font-weight: 300;
+    font-size: 0.85em;
+    /* line-height: 17px; */
+    /* identical to box height */
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #E6EAEE;
+
+    padding-bottom: 1%;
+    color: #999999;
+}
+
+.header section div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.bold {
+    color: #565656;
+    cursor: pointer;
+}
+
+
+
+.header section button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 12px 24px; */
+    outline: none;
+    width: 37%;
+    /* height: 3em; */
+    height: 210%;
+    border: none;
+    background: #101010;
+    border-radius: 8px;
+    /* flex: 0.15; */
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.12em;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px 0px #00000016;
+    transition: all 0.5s ease 0s;
+}
+
+.header section button:hover,
+.header section button:active {
+    transform: scale(1.2);
+}
