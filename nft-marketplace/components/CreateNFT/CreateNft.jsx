@@ -247,6 +247,7 @@ const CreateNft = () => {
       randNum = new Date().valueOf();
       resMint = await mint(last_url, randNum);
     } catch (err) {
+      console.log({ err });
       console.log("Something went wrong while minting.");
     }
 
@@ -267,19 +268,25 @@ const CreateNft = () => {
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/item/create`,
           body
         );
-        console.log({ data });
-
+        console.log(data);
+        data = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/receive`,
+          { userAddress: receiver, itemId: data.data.data._id }
+        );
         data = await axios.post(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/login`,
           { address: obj.user }
         );
         const user = data.data.data.user;
+        console.log(user);
 
         const userObj = {
           userName: user.userName,
           _id: user._id,
           walletAddress: user.address,
           balance: 0,
+          profilePic: user.profilePic,
+          backgroundPic: user.backgroundPic,
         };
 
         dispatch(setUserState(userObj));

@@ -12,6 +12,7 @@ const Creator = ({ data }) => {
   let image = `url(/signin.jpg)`;
   let image2 = `url(/signin2.jpg)`;
   const user = data.user;
+  console.log(user);
   const [collections, setCollections] = useState([]);
   const [collectionId, setCollectionId] = useState("");
   const [items, setItems] = useState([]);
@@ -36,12 +37,25 @@ const Creator = ({ data }) => {
   useEffect(() => {
     const getItems = async () => {
       try {
-        const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/collection/get`,
-          { collectionId }
-        );
+        let res;
+        let itemsObj = [];
+        if (collectionId === "0") {
+          for (const ele of user.received) {
+            const res = await axios.post(
+              `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/item/get`,
+              { itemId: ele }
+            );
+            itemsObj.push(res.data.data);
+          }
+        } else {
+          res = await axios.post(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/collection/get`,
+            { collectionId }
+          );
 
-        let itemsObj = res.data.data.items;
+          itemsObj = res.data.data.items;
+        }
+
         itemsObj.sort(function (a, b) {
           let A = new Date(a.createdAt),
             B = new Date(b.createdAt);
@@ -82,7 +96,7 @@ const Creator = ({ data }) => {
             <AutoAwesomeIcon style={{ fontSize: "40px", color: "gold" }} />
           </h1>
 
-          {collections.length > 0 && (
+          {(collections.length > 0 || user.received.length > 0) && (
             <select
               name='Collection'
               id='Collection'
@@ -90,6 +104,9 @@ const Creator = ({ data }) => {
               onChange={(e) => setCollectionId(e.target.value || "")}
             >
               <option value=''>-- Choose category --</option>
+              {user.received.length > 0 && (
+                <option value='0'>received -- ({user.received.length})</option>
+              )}
               {collections.map((collection) => {
                 return (
                   <option key={collection._id} value={collection._id || ""}>

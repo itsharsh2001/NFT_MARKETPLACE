@@ -4,7 +4,6 @@ import Footer from "../components/Home/Footer";
 export default function CreateNFT() {
   return (
     <>
-      {/* <NavBar /> */}
       <CreateNft />
       <Footer />
     </>
