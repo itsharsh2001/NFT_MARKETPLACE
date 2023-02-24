@@ -1,13 +1,13 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import classes from "./Detail.module.css";
 import { ethers } from "ethers";
 import { useSelector } from "react-redux";
-
+import Link from "next/link";
 const url =
-  "https://polygon-mumbai.g.alchemy.com/v2/Sq5Vw5NGLCscYbvOvYbkNTs21q25_IFD";
+  "https://polygon-mumbai.infura.io/v3/a2d512999ccc4e8fa4c183b6d1d6ad9a";
 const abi = [
   {
     anonymous: false,
@@ -33,6 +33,25 @@ const abi = [
     ],
     name: "Transfer",
     type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "tokenId",
+        type: "uint256",
+      },
+    ],
+    name: "_ownerOf",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
   },
   {
     inputs: [],
@@ -161,14 +180,19 @@ const abi = [
 
 const Detail = ({ data }) => {
   const user = useSelector((state) => state.user);
-  console.log(user);
+  // console.log({ data });
 
   async function handleVerify(event) {
-    const address = data.contractAddress;
-    const provider = new ethers.providers.Web3Provider(url);
-    const contract = new ethers.Contract(address, abi, provider);
-    let owner = await contract.ownerOf(data.tokenId);
-    console.log({ owner });
+    const provider = new ethers.providers.JsonRpcProvider(url);
+    const contract = new ethers.Contract(data.contractAddress, abi, provider);
+    let res = await contract.balanceOf(user.walletAddress);
+    res = res.toString();
+    console.log({ res });
+    if (res == "0") alert("You are not the owner. :-(");
+    else alert("You are the owner. :-)");
+
+    // console.log(typeof data.tokenId);
+    // console.log({ balance: owner.toString() });
     // if (owner === connected_user) {
     //   alert("Real owner");
     // } else {
@@ -186,7 +210,6 @@ const Detail = ({ data }) => {
         onSwiper={(swiper) => console.log(swiper)}
       >
         {data.imageLinks.map((link) => {
-          console.log({ link });
           let img = `url(${link})`;
           return (
             <SwiperSlide>
@@ -201,6 +224,12 @@ const Detail = ({ data }) => {
         <main>
           <span>
             <h1>{data.name}</h1>
+            <Link
+              href={`https://mumbai.polygonscan.com/address/${data.contractAddress}`}
+              target='_blank'
+            >
+              <CloudUploadIcon />
+            </Link>
             <p>{data.description}</p>
             <p>
               <strong>Owner :</strong> {data.ownerAddress}

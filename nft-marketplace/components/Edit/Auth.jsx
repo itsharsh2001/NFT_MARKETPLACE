@@ -1,34 +1,38 @@
+import axios from "axios";
+import { useRouter } from "next/router";
 import React from "react";
 
 import { useState } from "react";
 
 import classes from "./Auth.module.css";
 
-function Auth() {
-  let image = `url(/signin.jpg)`;
-  let image1 = `url(/face.jpg)`;
-
-  const [isLogin, setIsLogin] = useState(true);
-
-  const loginRegisterToggler = () => {
-    setIsLogin((prevIsLogin) => {
-      return !prevIsLogin;
-    });
-  };
-
-  const loginHandler = () => {
-    console.log("login successful");
-  };
-
+function Auth({ data }) {
+  const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [profile, setProfile] = useState("");
+  const [background, setBackground] = useState("");
   const handleEdit = () => {
-    console.log("Editing");
+    const edit = async () => {
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/edit`,
+          {
+            userId: data._id,
+            userName: username,
+            profilePic: profile,
+            backgroundPic: background,
+          }
+        );
+        router.replace(`/creators/${data._id}`);
+      } catch (error) {
+        console.log("Some error occurred while editing.");
+        console.log(error);
+      }
+    };
+    edit();
   };
 
   return (
-    // <div style={{width:'100px', height:'100px', background:`url(/signin.jpg)`}}>
-    // <div style={{width:'100px', height:'100px', background:image}}>
-
-    //  </div>
     <header className={classes.header}>
       <section>
         <h1>Give your profile some personal touches.</h1>
@@ -36,30 +40,32 @@ function Auth() {
           This is our dedication in serving customers, so that we can find out
           which customers are really interested in
         </p>
-        <label htmlFor=''>User ID</label>
-        <input type='text' name='' id='' placeholder='Input your ID' />
-        <label htmlFor=''>Password</label>
+        <label htmlFor=''>User Name</label>
         <input
-          type='password'
+          type='text'
+          name=''
+          value={username}
+          placeholder='Input your username'
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <label htmlFor=''>Profile Pic Url (Public)</label>
+        <input
+          type='text'
           name=''
           id=''
-          placeholder='Input your password'
+          placeholder='Input your url'
+          value={profile}
+          onChange={(e) => setProfile(e.target.value)}
         />
-        <label htmlFor=''>Password</label>
+        <label htmlFor=''>Background</label>
         <input
-          type='password'
+          type='text'
           name=''
           id=''
-          placeholder='Input your password'
+          placeholder='Input your url'
+          value={background}
+          onChange={(e) => setBackground(e.target.value)}
         />
-        <label htmlFor=''>Password</label>
-        <input
-          type='password'
-          name=''
-          id=''
-          placeholder='Input your password'
-        />
-
         <div>
           <button onClick={handleEdit}>Edit</button>
         </div>

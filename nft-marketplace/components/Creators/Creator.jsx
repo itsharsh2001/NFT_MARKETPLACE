@@ -1,5 +1,6 @@
 import React, { use, useEffect, useState } from "react";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import EditIcon from "@mui/icons-material/Edit";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import DiamondIcon from "@mui/icons-material/Diamond";
 
@@ -71,6 +72,9 @@ const Creator = ({ data }) => {
             <div>
               <h4>{user.userName}</h4>
               <p>@{user.walletAddress}</p>
+              <Link href={`/edit/${user._id}`}>
+                <EditIcon />
+              </Link>
             </div>
           </section>
           <h1>
@@ -78,21 +82,23 @@ const Creator = ({ data }) => {
             <AutoAwesomeIcon style={{ fontSize: "40px", color: "gold" }} />
           </h1>
 
-          <select
-            name='Collection'
-            id='Collection'
-            value={collectionId}
-            onChange={(e) => setCollectionId(e.target.value || "")}
-          >
-            <option value=''>-- Choose category --</option>
-            {collections.map((collection) => {
-              return (
-                <option key={collection._id} value={collection._id || ""}>
-                  {collection.name} -- ({collection.items.length})
-                </option>
-              );
-            })}
-          </select>
+          {collections.length > 0 && (
+            <select
+              name='Collection'
+              id='Collection'
+              value={collectionId}
+              onChange={(e) => setCollectionId(e.target.value || "")}
+            >
+              <option value=''>-- Choose category --</option>
+              {collections.map((collection) => {
+                return (
+                  <option key={collection._id} value={collection._id || ""}>
+                    {collection.name} -- ({collection.items.length})
+                  </option>
+                );
+              })}
+            </select>
+          )}
         </div>
         <span
           className={classes.imgdiv}
@@ -111,7 +117,12 @@ const Creator = ({ data }) => {
               <p>Itmes</p>
               <h6>{items.length}</h6>
             </div>
-            <CloudUploadIcon className={classes.icon} />
+            <Link
+              href={`https://mumbai.polygonscan.com/address/${user.walletAddress}`}
+              target='_blank'
+            >
+              <CloudUploadIcon className={classes.icon} />
+            </Link>
           </span>
         </span>
       </header>

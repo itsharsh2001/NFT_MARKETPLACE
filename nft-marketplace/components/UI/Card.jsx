@@ -6,6 +6,7 @@ let image = `url(/signin.jpg)`;
 let image2 = `url(/signin2.jpg)`;
 
 const Card = ({ data }) => {
+  console.log({ data });
   return (
     <>
       <Link href='/creators/[id]' as={`/creators/${data ? data._id : ""}`}>
@@ -41,7 +42,11 @@ const Card = ({ data }) => {
           <section className={classes.imgspan}>
             <span style={{ background: image }}></span>
             <span style={{ background: image2 }}></span>
-            <span style={{ backgroundImage: image }}>+55</span>
+            <span style={{ backgroundImage: image }}>
+              {data.collections.length > 3
+                ? `+ ${data.collections.length - 3}`
+                : data.collections.length}
+            </span>
           </section>
         </span>
       </Link>

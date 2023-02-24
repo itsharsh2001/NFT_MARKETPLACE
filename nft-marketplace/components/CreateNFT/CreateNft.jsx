@@ -132,9 +132,9 @@ const CreateNft = () => {
       obj.web3provider.provider
     );
     const signer = provider.getSigner();
-    let contractAddress = "0xb6e4a7e11E9Aceb17a87EFf565787C3515324939";
+    let factoryAddress = "0xb6e4a7e11E9Aceb17a87EFf565787C3515324939";
     const userAddress = await signer.getAddress();
-    let FactoryObj = new ethers.Contract(contractAddress, factoryABI, signer);
+    let FactoryObj = new ethers.Contract(factoryAddress, factoryABI, signer);
     console.log(FactoryObj);
     console.log("Impl : ", await FactoryObj.implementationContract());
     console.log(userAddress);
@@ -142,14 +142,14 @@ const CreateNft = () => {
     let txn;
     try {
       txn = await FactoryObj.createContract(
-        "Harsh", // this will be the collection name send by user
-        "HSH", // this will be collection symbol send by the user
+        collectionName, // this will be the collection name send by user
+        collectionDescription, // this will be collection symbol send by the user
         userAddress // wallet address of the connected wallet
       );
 
       const receipt = await txn.wait();
       let new_collection_address = filter_address(receipt.logs[0].topics[1]);
-      console.log("created contract address : ", new_collection_address);
+      alert(`created contract address :  ${new_collection_address}`);
 
       const payload = {
         name: collectionName,
@@ -163,6 +163,8 @@ const CreateNft = () => {
       );
       if (res.data.success) {
         fetchCollections(obj.user);
+        setCollectionName("");
+        setCollectionDescription("");
       }
     } catch (err) {
       console.log(err);
@@ -257,7 +259,7 @@ const CreateNft = () => {
         name,
         description,
         imageLinks: [assetUrl],
-        finalUrl,
+        finalUrl: last_url,
         tokenId: randNum.toString(),
       };
       try {

@@ -12,7 +12,13 @@ const Creators = () => {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/user/getAllUsers`
       );
-      setData(res.data.data);
+      const users = res.data.data.users;
+      users.sort(function (a, b) {
+        let A = new Date(a.createdAt),
+          B = new Date(b.createdAt);
+        return A - B;
+      });
+      setData(users);
     };
     getData();
   }, []);
@@ -24,8 +30,8 @@ const Creators = () => {
 
       <section className={classes.creatorsection}>
         {data &&
-          data.users.map((user) => {
-            return <Card data={user} />;
+          data.map((user, index) => {
+            return <Card data={user} key={index} />;
           })}
       </section>
     </>

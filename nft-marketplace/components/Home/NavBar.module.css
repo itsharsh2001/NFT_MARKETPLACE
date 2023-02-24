@@ -136,6 +136,7 @@
   width: 50px;
   border: 1px solid #ddf247;
   border-radius: 50%;
+  object-fit: cover !important;
 }
 
 .nav section a {

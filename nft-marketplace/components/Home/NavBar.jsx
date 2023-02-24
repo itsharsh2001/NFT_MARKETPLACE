@@ -105,11 +105,11 @@ function NavBar() {
 
       {(user != null && user.walletAddress) !== "" && (
         <ul>
-          <Link href='/'>
+          <Link href='/creators'>
             <li>DISCOVER</li>
           </Link>
-          <Link href='/creators'>
-            <li>CREATORS</li>
+          <Link href='/aboutus'>
+            <li>ABOUT US</li>
           </Link>
           <Link href='/stats'>
             <li>STATS</li>
