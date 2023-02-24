@@ -4,6 +4,7 @@ import "swiper/css";
 
 import classes from "./Detail.module.css";
 import { ethers } from "ethers";
+import { useSelector } from "react-redux";
 
 const url =
   "https://polygon-mumbai.g.alchemy.com/v2/Sq5Vw5NGLCscYbvOvYbkNTs21q25_IFD";
@@ -159,16 +160,20 @@ const abi = [
 ];
 
 const Detail = ({ data }) => {
+  const user = useSelector((state) => state.user);
+  console.log(user);
+
   async function handleVerify(event) {
     const address = data.contractAddress;
     const provider = new ethers.providers.Web3Provider(url);
-    const contract = new ethers.Contract(address, abi, url);
-    let owner = await contract.ownerOf(token_id);
-    if (owner === connected_user) {
-      alert("Real owner");
-    } else {
-      alert("Not real owner");
-    }
+    const contract = new ethers.Contract(address, abi, provider);
+    let owner = await contract.ownerOf(data.tokenId);
+    console.log({ owner });
+    // if (owner === connected_user) {
+    //   alert("Real owner");
+    // } else {
+    //   alert("Not real owner");
+    // }
   }
 
   return (
@@ -207,9 +212,11 @@ const Detail = ({ data }) => {
               <strong>Created at :</strong> {data.createdAt}
             </p>
 
-            <div className={classes.greenbutton}>
-              <button onClick={(e) => handleVerify(e)}>Verify</button>
-            </div>
+            {data.tokenId && user && (
+              <div className={classes.greenbutton}>
+                <button onClick={(e) => handleVerify(e)}>Verify</button>
+              </div>
+            )}
           </span>
         </main>
       </section>

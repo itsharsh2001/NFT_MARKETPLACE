@@ -6,8 +6,13 @@ export default function CreateNFT() {
   return (
     <>
       <NavBar />
-      <UsersChart />
-      <ItemsChart />
+      <section>
+        <UsersChart />
+      </section>
+      <br></br>
+      <section>
+        <ItemsChart />
+      </section>
       <Footer />
     </>
   );

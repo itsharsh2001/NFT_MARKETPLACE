@@ -134,6 +134,7 @@
 .nav section img {
   height: 50px;
   width: 50px;
+  border: 1px solid #ddf247;
   border-radius: 50%;
 }
 

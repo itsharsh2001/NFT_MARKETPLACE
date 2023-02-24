@@ -8,6 +8,8 @@ import Link from "next/link";
 import axios from "axios";
 
 const Creator = ({ data }) => {
+  let image = `url(/signin.jpg)`;
+  let image2 = `url(/signin2.jpg)`;
   const user = data.user;
   const [collections, setCollections] = useState([]);
   const [collectionId, setCollectionId] = useState("");
@@ -53,11 +55,6 @@ const Creator = ({ data }) => {
     else setItems([]);
   }, [collectionId]);
 
-  // const { collections } = data;
-
-  let image = `url(/signin.jpg)`;
-  let image2 = `url(/signin2.jpg)`;
-
   return (
     <>
       <header className={classes.header}>
@@ -102,7 +99,7 @@ const Creator = ({ data }) => {
           style={{
             background: user.backgroundPic
               ? `url(${user.backgroundPic})`
-              : image1,
+              : image,
           }}
         >
           <span>

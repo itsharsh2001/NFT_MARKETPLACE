@@ -54,6 +54,8 @@ function NavBar() {
           _id: data.user._id,
           walletAddress: Uaddress,
           balance: bal,
+          profilePic: data.user.profilePic,
+          backgroundPic: data.user.backgroundPic,
         };
 
         dispatch(setUserState(userObj));
@@ -114,7 +116,7 @@ function NavBar() {
           </Link>
           {user && (
             <Link href={`/creators/${user._id}`}>
-              <li>MY PAGE</li>
+              <li>SPACE</li>
             </Link>
           )}
         </ul>
@@ -132,12 +134,15 @@ function NavBar() {
       {user != null && user.walletAddress !== "" ? (
         <>
           <button onClick={() => disconnect()}>Disconnect</button>
-          <section>
-            <img src='/signin.jpg' alt='' />
-            <Link href='/creators/[id]' as={`/creators/${user._id}`}>
+          <Link href='/creators/[id]' as={`/creators/${user._id}`}>
+            <section>
+              <img
+                src={user.profilePic ? user.profilePic : "/signin.jpg"}
+                alt=''
+              />
               {user != null && user.userName}
-            </Link>
-          </section>
+            </section>
+          </Link>
         </>
       ) : (
         <button onClick={() => initWallet()}>Connect</button>

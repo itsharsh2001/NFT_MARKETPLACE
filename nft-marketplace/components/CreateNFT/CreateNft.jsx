@@ -240,8 +240,9 @@ const CreateNft = () => {
 
     // call the mint function to mint the NFT
     let resMint = false;
+    let randNum;
     try {
-      const randNum = new Date().valueOf();
+      randNum = new Date().valueOf();
       resMint = await mint(last_url, randNum);
     } catch (err) {
       console.log("Something went wrong while minting.");
@@ -256,6 +257,8 @@ const CreateNft = () => {
         name,
         description,
         imageLinks: [assetUrl],
+        finalUrl,
+        tokenId: randNum.toString(),
       };
       try {
         let data = await axios.post(

@@ -6,7 +6,6 @@ let image = `url(/signin.jpg)`;
 let image2 = `url(/signin2.jpg)`;
 
 const Card = ({ data }) => {
-  console.log({ data });
   return (
     <>
       <Link href='/creators/[id]' as={`/creators/${data ? data._id : ""}`}>

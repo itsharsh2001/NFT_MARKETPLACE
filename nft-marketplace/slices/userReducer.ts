@@ -5,6 +5,8 @@ export interface UserState {
   walletAddress: string;
   userName: string;
   balance: string;
+  profilePic: string;
+  backgroundPic: string;
 }
 
 export const userSlice = createSlice({
