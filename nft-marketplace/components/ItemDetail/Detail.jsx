@@ -190,14 +190,6 @@ const Detail = ({ data }) => {
     console.log({ res });
     if (res == "0") alert("You are not the owner. :-(");
     else alert("You are the owner. :-)");
-
-    // console.log(typeof data.tokenId);
-    // console.log({ balance: owner.toString() });
-    // if (owner === connected_user) {
-    //   alert("Real owner");
-    // } else {
-    //   alert("Not real owner");
-    // }
   }
 
   return (
